@@ -1,0 +1,6 @@
+D:\Important Project\DVLD Project\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+D:\Important Project\DVLD Project\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+D:\Important Project\DVLD Project\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.AssemblyReference.cache
+D:\Important Project\DVLD Project\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+D:\Important Project\DVLD Project\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+D:\Important Project\DVLD Project\DataAccessLayer\obj\Debug\DataAccessLayer.pdb

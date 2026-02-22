@@ -1,0 +1,9 @@
+D:\Important Project\DVLD Project\BussinessLayer\bin\Debug\BussinessLayer.dll
+D:\Important Project\DVLD Project\BussinessLayer\bin\Debug\BussinessLayer.pdb
+D:\Important Project\DVLD Project\BussinessLayer\bin\Debug\DataAccessLayer.dll
+D:\Important Project\DVLD Project\BussinessLayer\bin\Debug\DataAccessLayer.pdb
+D:\Important Project\DVLD Project\BussinessLayer\obj\Debug\BussinessLayer.csproj.AssemblyReference.cache
+D:\Important Project\DVLD Project\BussinessLayer\obj\Debug\BussinessLayer.csproj.CoreCompileInputs.cache
+D:\Important Project\DVLD Project\BussinessLayer\obj\Debug\Bussines.E1038C4E.Up2Date
+D:\Important Project\DVLD Project\BussinessLayer\obj\Debug\BussinessLayer.dll
+D:\Important Project\DVLD Project\BussinessLayer\obj\Debug\BussinessLayer.pdb
