@@ -3,11 +3,23 @@
   "WorkspaceRootPath": "D:\\Important Project\\DVLD Project\\DVLD\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{FE4BB25F-B4A8-492B-955D-7231F3741941}|DVLD.csproj|d:\\important project\\dvld project\\dvld\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE4BB25F-B4A8-492B-955D-7231F3741941}|DVLD.csproj|solutionrelative:login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE4BB25F-B4A8-492B-955D-7231F3741941}|DVLD.csproj|d:\\important project\\dvld project\\dvld\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{FE4BB25F-B4A8-492B-955D-7231F3741941}|DVLD.csproj|solutionrelative:login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE4BB25F-B4A8-492B-955D-7231F3741941}|DVLD.csproj|d:\\important project\\dvld project\\dvld\\people\\managedrivers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{FE4BB25F-B4A8-492B-955D-7231F3741941}|DVLD.csproj|solutionrelative:people\\managedrivers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{FE4BB25F-B4A8-492B-955D-7231F3741941}|DVLD.csproj|d:\\important project\\dvld project\\dvld\\license\\managedetainedlicenses.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FE4BB25F-B4A8-492B-955D-7231F3741941}|DVLD.csproj|solutionrelative:license\\managedetainedlicenses.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE4BB25F-B4A8-492B-955D-7231F3741941}|DVLD.csproj|d:\\important project\\dvld project\\dvld\\license\\managedetainedlicenses.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{FE4BB25F-B4A8-492B-955D-7231F3741941}|DVLD.csproj|D:\\Important Project\\DVLD Project\\DVLD\\license\\managedetainedlicenses.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{FE4BB25F-B4A8-492B-955D-7231F3741941}|DVLD.csproj|solutionrelative:license\\managedetainedlicenses.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
@@ -15,7 +27,7 @@
       "RelativeMoniker": "D:0:0:{FE4BB25F-B4A8-492B-955D-7231F3741941}|DVLD.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE4BB25F-B4A8-492B-955D-7231F3741941}|DVLD.csproj|d:\\important project\\dvld project\\dvld\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{FE4BB25F-B4A8-492B-955D-7231F3741941}|DVLD.csproj|D:\\Important Project\\DVLD Project\\DVLD\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{FE4BB25F-B4A8-492B-955D-7231F3741941}|DVLD.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
@@ -26,11 +38,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "Form1.cs",
               "DocumentMoniker": "D:\\Important Project\\DVLD Project\\DVLD\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
@@ -39,45 +51,7 @@
               "ViewState": "AgIAAH4AAAAAAAAAAAD4v40AAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-17T11:38:24.841Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Form1.cs [Design]",
-              "DocumentMoniker": "D:\\Important Project\\DVLD Project\\DVLD\\Form1.cs",
-              "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "D:\\Important Project\\DVLD Project\\DVLD\\Form1.cs [Design]",
-              "RelativeToolTip": "Form1.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-21T11:01:07.003Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ManageDetainedLicenses.cs",
-              "DocumentMoniker": "D:\\Important Project\\DVLD Project\\DVLD\\License\\ManageDetainedLicenses.cs",
-              "RelativeDocumentMoniker": "License\\ManageDetainedLicenses.cs",
-              "ToolTip": "D:\\Important Project\\DVLD Project\\DVLD\\License\\ManageDetainedLicenses.cs",
-              "RelativeToolTip": "License\\ManageDetainedLicenses.cs",
-              "ViewState": "AgIAAFUAAAAAAAAAAAAYwG4AAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-21T09:54:30.305Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ManageDetainedLicenses.cs [Design]",
-              "DocumentMoniker": "D:\\Important Project\\DVLD Project\\DVLD\\License\\ManageDetainedLicenses.cs",
-              "RelativeDocumentMoniker": "License\\ManageDetainedLicenses.cs",
-              "ToolTip": "D:\\Important Project\\DVLD Project\\DVLD\\License\\ManageDetainedLicenses.cs [Design]",
-              "RelativeToolTip": "License\\ManageDetainedLicenses.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-21T09:50:45.95Z",
-              "EditorCaption": " [Design]"
+              "IsPinned": true
             },
             {
               "$type": "Bookmark",
@@ -86,6 +60,78 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Login.cs",
+              "DocumentMoniker": "D:\\Important Project\\DVLD Project\\DVLD\\Login.cs",
+              "RelativeDocumentMoniker": "Login.cs",
+              "ToolTip": "D:\\Important Project\\DVLD Project\\DVLD\\Login.cs",
+              "RelativeToolTip": "Login.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAADwvxMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-02T16:47:27.782Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Login.cs [Design]",
+              "DocumentMoniker": "D:\\Important Project\\DVLD Project\\DVLD\\Login.cs",
+              "RelativeDocumentMoniker": "Login.cs",
+              "ToolTip": "D:\\Important Project\\DVLD Project\\DVLD\\Login.cs [Design]",
+              "RelativeToolTip": "Login.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-02T16:47:21.816Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ManageDrivers.cs [Design]",
+              "DocumentMoniker": "D:\\Important Project\\DVLD Project\\DVLD\\People\\ManageDrivers.cs",
+              "RelativeDocumentMoniker": "People\\ManageDrivers.cs",
+              "ToolTip": "D:\\Important Project\\DVLD Project\\DVLD\\People\\ManageDrivers.cs [Design]",
+              "RelativeToolTip": "People\\ManageDrivers.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-02T16:47:19.912Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "D:\\Important Project\\DVLD Project\\DVLD\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "D:\\Important Project\\DVLD Project\\DVLD\\Form1.cs [Design]",
+              "RelativeToolTip": "Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-21T11:01:07.003Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ManageDetainedLicenses.cs",
+              "DocumentMoniker": "D:\\Important Project\\DVLD Project\\DVLD\\License\\ManageDetainedLicenses.cs",
+              "RelativeDocumentMoniker": "License\\ManageDetainedLicenses.cs",
+              "ToolTip": "D:\\Important Project\\DVLD Project\\DVLD\\License\\ManageDetainedLicenses.cs",
+              "RelativeToolTip": "License\\ManageDetainedLicenses.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAcwG4AAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-21T09:54:30.305Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ManageDetainedLicenses.cs [Design]",
+              "DocumentMoniker": "D:\\Important Project\\DVLD Project\\DVLD\\License\\ManageDetainedLicenses.cs",
+              "RelativeDocumentMoniker": "License\\ManageDetainedLicenses.cs",
+              "ToolTip": "D:\\Important Project\\DVLD Project\\DVLD\\License\\ManageDetainedLicenses.cs [Design]",
+              "RelativeToolTip": "License\\ManageDetainedLicenses.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-21T09:50:45.95Z"
             }
           ]
         }

@@ -1,0 +1,79 @@
+1/31/2026 6:56:56 PMExecuteReader requires an open and available Connection. The connection's current state is closed.1/31/2026 6:58:23 PMExecuteReader requires an open and available Connection. The connection's current state is closed.1/31/2026 6:59:05 PMExecuteReader requires an open and available Connection. The connection's current state is closed.1/31/2026 8:36:21 PMInvalid attempt to read when no data is present.
+1/31/2026 8:36:35 PMInvalid attempt to read when no data is present.
+1/31/2026 8:38:19 PMInvalid attempt to read when no data is present.
+1/31/2026 8:40:28 PMInvalid attempt to read when no data is present.
+1/31/2026 8:42:17 PMSpecified cast is not valid.
+1/31/2026 8:43:05 PMSpecified cast is not valid.
+1/31/2026 8:45:10 PMMust declare the scalar variable "@ID".
+2/1/2026 6:56:05 PMClassnName
+2/1/2026 6:56:23 PMClassnName
+2/1/2026 6:56:57 PMClassnName
+2/1/2026 6:57:05 PMClassnName
+2/1/2026 6:58:17 PMClassnName
+2/1/2026 6:58:32 PMClassnName
+2/1/2026 6:59:23 PMClassnName
+2/2/2026 11:53:27 AMInvalid attempt to call Read when reader is closed.
+2/2/2026 11:57:12 AMInvalid attempt to call Read when reader is closed.
+2/4/2026 3:09:58 PMIncorrect syntax near ';'.
+2/4/2026 3:12:39 PMIncorrect syntax near ';'.
+2/4/2026 3:12:58 PMSpecified cast is not valid.
+2/4/2026 3:15:12 PMSpecified cast is not valid.
+2/4/2026 3:15:52 PMThe INSERT statement conflicted with the FOREIGN KEY constraint "FK_DrivingLicsenseApplications_Applications". The conflict occurred in database "DVLD", table "dbo.Applications", column 'ApplicationID'.
+The statement has been terminated.
+2/7/2026 11:29:33 AMThe INSERT statement conflicted with the FOREIGN KEY constraint "FK_Applications_People". The conflict occurred in database "DVLD", table "dbo.People", column 'PersonID'.
+The statement has been terminated.
+2/7/2026 11:29:58 AMThe INSERT statement conflicted with the FOREIGN KEY constraint "FK_Applications_People". The conflict occurred in database "DVLD", table "dbo.People", column 'PersonID'.
+The statement has been terminated.
+2/7/2026 6:34:39 PMColumn "Applications.ApplicationID" is invalid in the ORDER BY clause because it is not contained in either an aggregate function or the GROUP BY clause.
+2/7/2026 6:40:00 PMInvalid column name 'ApplicationsID'.
+2/7/2026 6:41:50 PMInvalid column name 'ApplicationsID'.
+2/7/2026 6:43:36 PMInvalid column name 'ApplicationsID'.
+2/7/2026 6:46:25 PMInvalid column name 'ApplicationsID'.
+2/7/2026 6:47:05 PMSpecified cast is not valid.
+2/7/2026 6:47:05 PMSpecified cast is not valid.
+2/7/2026 6:47:31 PMSpecified cast is not valid.
+2/7/2026 6:47:31 PMSpecified cast is not valid.
+2/7/2026 6:49:07 PMSpecified cast is not valid.
+2/7/2026 6:52:18 PMSpecified cast is not valid.
+2/7/2026 6:52:52 PMSpecified cast is not valid.
+2/9/2026 5:00:22 PMSpecified cast is not valid.
+2/9/2026 5:02:06 PMSpecified cast is not valid.
+2/9/2026 5:10:36 PMSpecified cast is not valid.
+2/11/2026 11:28:50 AMThe INSERT statement conflicted with the FOREIGN KEY constraint "FK_Tests_TestAppointments". The conflict occurred in database "DVLD2", table "dbo.TestAppointments", column 'TestAppointmentID'.
+The statement has been terminated.
+2/11/2026 1:44:30 PMThe INSERT statement conflicted with the FOREIGN KEY constraint "FK_Tests_TestAppointments". The conflict occurred in database "DVLD2", table "dbo.TestAppointments", column 'TestAppointmentID'.
+The statement has been terminated.
+2/11/2026 1:45:25 PMThe INSERT statement conflicted with the FOREIGN KEY constraint "FK_Tests_TestAppointments". The conflict occurred in database "DVLD2", table "dbo.TestAppointments", column 'TestAppointmentID'.
+The statement has been terminated.
+2/11/2026 1:47:19 PMThe INSERT statement conflicted with the FOREIGN KEY constraint "FK_Tests_TestAppointments". The conflict occurred in database "DVLD2", table "dbo.TestAppointments", column 'TestAppointmentID'.
+The statement has been terminated.
+2/11/2026 1:50:34 PMThe INSERT statement conflicted with the FOREIGN KEY constraint "FK_Tests_TestAppointments". The conflict occurred in database "DVLD2", table "dbo.TestAppointments", column 'TestAppointmentID'.
+The statement has been terminated.
+2/11/2026 8:22:44 PMThe INSERT statement conflicted with the FOREIGN KEY constraint "FK_Applications_ApplicationTypes". The conflict occurred in database "DVLD2", table "dbo.ApplicationTypes", column 'ApplicationTypeID'.
+The statement has been terminated.
+2/12/2026 2:00:54 PMUnable to cast object of type 'System.Byte' to type 'System.String'.
+2/12/2026 2:00:55 PM The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Licenses_Drivers". The conflict occurred in database "DVLD2", table "dbo.Drivers", column 'DriverID'.
+The statement has been terminated.
+2/12/2026 3:09:31 PMUnable to cast object of type 'System.Byte' to type 'System.String'.
+2/12/2026 3:12:23 PMUnable to cast object of type 'System.Byte' to type 'System.String'.
+2/12/2026 3:12:28 PM The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Licenses_Applications". The conflict occurred in database "DVLD2", table "dbo.Applications", column 'ApplicationID'.
+The statement has been terminated.
+2/12/2026 3:13:10 PMUnable to cast object of type 'System.Byte' to type 'System.String'.
+2/12/2026 3:16:41 PMUnable to cast object of type 'System.Byte' to type 'System.String'.
+2/12/2026 3:19:39 PMUnable to cast object of type 'System.Byte' to type 'System.String'.
+2/12/2026 3:21:03 PMUnable to cast object of type 'System.Byte' to type 'System.String'.
+2/12/2026 3:27:52 PMUnable to cast object of type 'System.Byte' to type 'System.String'.
+2/12/2026 6:21:35 PMUnable to cast object of type 'System.Byte' to type 'System.String'.
+2/15/2026 9:22:38 AMUnable to cast object of type 'System.Byte' to type 'System.String'.
+2/16/2026 6:43:27 PMUnable to cast object of type 'System.Byte' to type 'System.String'.
+2/17/2026 1:48:31 PMThe INSERT statement conflicted with the FOREIGN KEY constraint "FK_Applications_People". The conflict occurred in database "DVLD2", table "dbo.People", column 'PersonID'.
+The statement has been terminated.
+2/18/2026 10:58:24 AMUnable to cast object of type 'System.Byte' to type 'System.String'.
+2/18/2026 8:41:21 PMThe INSERT statement conflicted with the FOREIGN KEY constraint "FK_Applications_People". The conflict occurred in database "DVLD2", table "dbo.People", column 'PersonID'.
+The statement has been terminated.
+2/18/2026 8:41:31 PMThe INSERT statement conflicted with the FOREIGN KEY constraint "FK_Applications_People". The conflict occurred in database "DVLD2", table "dbo.People", column 'PersonID'.
+The statement has been terminated.
+2/20/2026 11:19:37 PM Must declare the scalar variable "@UserID".
+2/21/2026 11:40:44 AM Invalid column name 'DetainedLicenseID'.
+2/21/2026 11:41:51 AM The UPDATE statement conflicted with the FOREIGN KEY constraint "FK_DetainedLicenses_Applications". The conflict occurred in database "DVLD2", table "dbo.Applications", column 'ApplicationID'.
+The statement has been terminated.

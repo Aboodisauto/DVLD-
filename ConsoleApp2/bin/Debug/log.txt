@@ -1,0 +1,8 @@
+This is a log message to the file.
+This is a log message to the file.
+Negro
+Something happened!
+Something happened!
+Something happened!
+Logging to file
+Error, SomeThing Went Wrong

@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BussinessLayer;
 using System.IO;
+using Microsoft.Win32;
 
 namespace DVLD
 {
     public partial class Login : Form
     {
-        string FilePath = @"D:\Important Project\DVLD Project\DVLD\Remember.txt";
+        string keyPath = @"HKEY_CURRENT_USER\SOFTWARE\DVLD\RememberMe";
+        string valueName = "RememberMe";
         public Login()
         {
             InitializeComponent();
@@ -27,9 +29,14 @@ namespace DVLD
         }
         private void _RemeberData(string Username,string Password)
         {
-            string[] info = { Username, Password };
-            
-            File.WriteAllLines(FilePath, info);
+            string keyValue = Username + ":" + Password;
+            try
+            {
+                Registry.SetValue(keyPath, valueName, keyValue, RegistryValueKind.String);
+            }catch(Exception ex)
+            {
+                Console.WriteLine("Error While Logging Data: \n" + ex.Message);
+            }
         }
         private void _ShowMainForm()
         {
@@ -40,16 +47,30 @@ namespace DVLD
         }
         private bool _ReadDataOnOpen()
         {
-            if (!File.Exists(FilePath))
-                return false;
-            string[] lines = File.ReadAllLines(FilePath);
-            if (lines.Length <= 0)
-                return false;
-            if (!clsUser.Login(lines[0], lines[1]))
+            //if (!File.Exists(FilePath))
+            //    return false;
+            //string[] lines = File.ReadAllLines(FilePath);
+            //if (lines.Length <= 0)
+            //    return false;
+            //if (!clsUser.Login(lines[0], lines[1]))
+            //{
+            //    return false;
+            //}
+            //return true;
+            string UserPass = Registry.GetValue(keyPath, valueName, null) as string;
+            if(UserPass != null)
             {
-                return false;
+                string[] lines = UserPass.Split(':');
+                if (lines.Length < 2)
+                    return false;
+                if (!clsUser.Login(lines[0], lines[1]))
+                    return false;
             }
-            return true;
+            else
+            {
+                Registry.SetValue(keyPath, valueName, "");
+            }
+                return true;
         }
         private void button1_Click(object sender, EventArgs e)
         {
