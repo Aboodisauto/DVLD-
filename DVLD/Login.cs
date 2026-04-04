@@ -10,9 +10,11 @@ using System.Windows.Forms;
 using BussinessLayer;
 using System.IO;
 using Microsoft.Win32;
+using System.Security.Cryptography;
 
 namespace DVLD
 {
+
     public partial class Login : Form
     {
         string keyPath = @"HKEY_CURRENT_USER\SOFTWARE\DVLD\RememberMe";

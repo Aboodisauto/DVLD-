@@ -10,17 +10,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using Microsoft.Win32;
 
 namespace DVLD
 {
     public partial class Form1 : Form
     {
-        
+
+
         private void _ClearRemeber()
         {
-            string Filename = @"D:\Important Project\DVLD Project\DVLD\Remember.txt";
-            File.WriteAllText(Filename, string.Empty);
-        }
+            string keyPath = @"HKEY_CURRENT_USER\SOFTWARE\DVLD\RememberMe";
+            string valueName = "RememberMe";
+            try
+            {
+                Registry.SetValue(keyPath, valueName, "", RegistryValueKind.String);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error While Clearing Data: \n" + ex.Message);
+            }
+        }   
         public Form1()
         {
             InitializeComponent();
