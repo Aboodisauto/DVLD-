@@ -17,8 +17,8 @@ namespace DataAccessLayer
         {
             bool isFound = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT * FROM Licenses WHERE LicenseID = @LicenseID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_FindLicenseByID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@LicenseID", LicenseID);
 
             try
@@ -56,8 +56,8 @@ namespace DataAccessLayer
         {
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT * FROM Licenses";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetAllLicenses", connection);
+            command.CommandType = CommandType.StoredProcedure;
 
             try
             {
@@ -78,8 +78,8 @@ namespace DataAccessLayer
         {
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT * FROM Licenses WHERE DriverID = @DriverID ORDER BY IssueDate DESC";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetDriverLicenses", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@DriverID", DriverID);
 
             try
@@ -103,18 +103,8 @@ namespace DataAccessLayer
         {
             int LicenseID = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-
-            string query = @"INSERT INTO Licenses 
-                               (ApplicationID, DriverID, LicenseClass, 
-                                IssueDate, ExpirationDate, Notes, 
-                                PaidFees, IsActive, IssueReason, CreatedByUserID)
-                             VALUES 
-                               (@ApplicationID, @DriverID, @LicenseClass, 
-                                @IssueDate, @ExpirationDate, @Notes, 
-                                @PaidFees, @IsActive, @IssueReason, @CreatedByUserID);
-                             SELECT SCOPE_IDENTITY();";
-
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_AddLicense", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ApplicationID", ApplicationID);
             command.Parameters.AddWithValue("@DriverID", DriverID);
             command.Parameters.AddWithValue("@LicenseClass", LicenseClass);
@@ -151,21 +141,8 @@ namespace DataAccessLayer
         {
             int rowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-
-            string query = @"UPDATE Licenses
-                             SET ApplicationID = @ApplicationID,
-                                 DriverID = @DriverID,
-                                 LicenseClass = @LicenseClass,
-                                 IssueDate = @IssueDate,
-                                 ExpirationDate = @ExpirationDate,
-                                 Notes = @Notes,
-                                 PaidFees = @PaidFees,
-                                 IsActive = @IsActive,
-                                 IssueReason = @IssueReason,
-                                 CreatedByUserID = @CreatedByUserID
-                             WHERE LicenseID = @LicenseID";
-
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_UpdateLicense", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@LicenseID", LicenseID);
             command.Parameters.AddWithValue("@ApplicationID", ApplicationID);
             command.Parameters.AddWithValue("@DriverID", DriverID);
@@ -197,8 +174,8 @@ namespace DataAccessLayer
         {
             int rowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "DELETE FROM Licenses WHERE LicenseID = @LicenseID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_DeleteLicense", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@LicenseID", LicenseID);
 
             try
@@ -214,8 +191,8 @@ namespace DataAccessLayer
         {
             bool does = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT Found = 1 FROM Licenses INNER JOIN Drivers ON Licenses.DriverID = Drivers.DriverID WHERE Drivers.PersonID = @PID AND Licenses.LicenseClass = @LID AND IsActive = 1";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_DoesPersonAlreadyHaveALicense", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@PID", PersonID);
             command.Parameters.AddWithValue("@LID", LicenseClassID);
             try
@@ -233,8 +210,8 @@ namespace DataAccessLayer
         {
             int LicenseID = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT LicenseID FROM Licenses WHERE ApplicationID = @ApplicationID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetLicenseIDByApplicationID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ApplicationID", ApplicationID);
             try
             {
@@ -254,9 +231,9 @@ namespace DataAccessLayer
         public static bool isLicenseDetained(int licenseID)
         {
             bool isDetained = false;
-            string query = "SELECT * FROM DetainedLicenses WHERE LicenseID = @ID AND IsReleased = 0";
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_IsLicenseDetained", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", licenseID);
             try
             {
@@ -273,9 +250,9 @@ namespace DataAccessLayer
         public static DataTable FetchLicenseForPerson(int driverID)
         {
             DataTable dataTable = new DataTable();
-            string query = "SELECT        Licenses.LicenseID, Licenses.ApplicationID, LicenseClasses.ClassName, Licenses.IssueDate, Licenses.ExpirationDate, Licenses.IsActive\r\nFROM            Licenses INNER JOIN\r\n                         LicenseClasses ON Licenses.LicenseClass = LicenseClasses.LicenseClassID WHERE DriverID = @DriverID";
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_FetchLicenseForPerson", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@DriverID", driverID);
             try
             {
@@ -296,8 +273,8 @@ namespace DataAccessLayer
         {
             int DetainedLicenseID = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "INSERT INTO DetainedLicenses (LicenseID, DetainDate, IsReleased, FineFees, CreatedByUserID) VALUES (@LicenseID, @DetainDate, 0, @FineFees, @UserID);SELECT SCOPE_IDENTITY();";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_DetainLicense", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@LicenseID", licenseID);
             command.Parameters.AddWithValue("@DetainDate", DateTime.Now);
             command.Parameters.AddWithValue("@FineFees", FineFees);
@@ -319,9 +296,9 @@ namespace DataAccessLayer
         {
             bool isReleased = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "UPDATE DetainedLicenses SET IsReleased = 1, ReleaseDate = @ReleaseDate, ReleasedByUserID = @UserID, ReleaseApplicationID = @ReleaseApplicationID WHERE LicenseID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@ID", DetainedLicenseID);
+            SqlCommand command = new SqlCommand("sp_ReleaseDetainedLicense", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@DetainedLicenseID", DetainedLicenseID);
             command.Parameters.AddWithValue("@ReleaseDate", DateTime.Now);
             command.Parameters.AddWithValue("@UserID", UserID);
             command.Parameters.AddWithValue("@ReleaseApplicationID", ReleaseApplicationID);
@@ -339,8 +316,8 @@ namespace DataAccessLayer
         {
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT        DetainedLicenses.DetainID As 'D.ID', DetainedLicenses.LicenseID As 'L.ID', DetainedLicenses.DetainDate As 'D Date', DetainedLicenses.IsReleased As 'Is Released', DetainedLicenses.FineFees As 'Fine Fees', DetainedLicenses.ReleaseDate As 'Release Date', People.NationalNo As 'N No', (People.FirstName + ' ' +\r\n                         People.SecondName + ' ' + People.ThirdName + ' ' + People.LastName) As 'Full Name', DetainedLicenses.ReleaseApplicationID As 'Release App ID'\r\nFROM            DetainedLicenses INNER JOIN\r\n                         Licenses ON DetainedLicenses.LicenseID = Licenses.LicenseID INNER JOIN\r\n                         Drivers ON Licenses.DriverID = Drivers.DriverID INNER JOIN\r\n                         People ON Drivers.PersonID = People.PersonID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetAllDetainedLicenses", connection);
+            command.CommandType = CommandType.StoredProcedure;
             try
             {
                 connection.Open();
@@ -366,8 +343,8 @@ namespace DataAccessLayer
         {
             bool Found = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT DetainID, FineFees, DetainDate FROM DetainedLicenses WHERE LicenseID = @LicenseID AND IsReleased = 0";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetDetainInfoByLicenseID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@LicenseID", LicenseID);
             try
             {

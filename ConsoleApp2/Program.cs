@@ -1,28 +1,23 @@
 ﻿//#define Jiji
 using System;
-using Microsoft.Win32;
+using System.Threading.Tasks;
+using System.Threading;
+using System.Net;
+using System.Collections.Generic;
+
 namespace ConsoleApp2
 {
-
-
     internal class Program
     {
+
         static void Main()
         {
-            string keyPath = @"HKEY_LOCAL_MACHINE\SOFTWARE\TestingApp";
-            string keyName = "TestName";
-            string keyValue = "TestValue";
-
-            try
-            {
-                Registry.SetValue(keyPath, keyName, keyValue, RegistryValueKind.String );
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error occured:\n" + ex.Message);
-                return;
-            }
-
+            Parallel.Invoke(
+                () => { Console.WriteLine($"Task 1 on thread {Task.CurrentId}"); Task.Delay(3000).Wait(); },
+                () => { Console.WriteLine($"Task 2 on thread {Task.CurrentId}"); Task.Delay(3000).Wait(); },
+                () => { Console.WriteLine($"Task 3 on thread {Task.CurrentId}"); Task.Delay(3000).Wait(); });
+            Console.WriteLine("All tasks completed");
         }
+        
     }
 }

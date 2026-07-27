@@ -81,7 +81,7 @@ namespace BussinessLayer
         }
         public static bool Login(string username, string password)
         {
-            int UserID = clsUserDAC.GetUserID(username, password);
+            int UserID = clsUserDAC.GetUserID(username, clsSecuirty.ComputeHash(password));
             if (UserID != -1)
             {
                 CurrentUser = clsUser.Find(UserID);
@@ -109,6 +109,20 @@ namespace BussinessLayer
         public static string GetUserName(int UserID)
         {
             return clsUserDAC.GetUserName(UserID);
+        }
+        public static bool HashAllPasswords()
+        {
+            int[] Ids = clsUser.FetchUsers().AsEnumerable().Select(r => r.Field<int>("User ID")).ToArray();
+            foreach (int id in Ids)
+            {
+                clsUser user = clsUser.Find(id);
+                if (user != null)
+                {
+                    user.Password = clsSecuirty.ComputeHash(user.Password);
+                    user.Save();
+                }
+            }
+            return true;
         }
     }
 }

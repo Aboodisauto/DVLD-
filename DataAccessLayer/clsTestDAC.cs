@@ -15,8 +15,8 @@ namespace DataAccessLayer
         {
             short count = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT COUNT(*) FROM TestAppointments INNER JOIN Tests ON TestAppointments.TestAppointmentID = Tests.TestAppointmentID WHERE LocalDrivingLicenseApplicationID = @ID AND TestResult = 1";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_CountPassedTests", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", LocalDrivingLicenseApplicationID);
             try
             {
@@ -31,8 +31,8 @@ namespace DataAccessLayer
         {
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT TestAppointmentID As 'Appointment ID', AppointmentDate, PaidFees, IsLocked FROM TestAppointments WHERE LocalDrivingLicenseApplicationID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_FetchTestAppointmentsForLocalApplication", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", LocalApplicationID);
             try
             {
@@ -54,11 +54,11 @@ namespace DataAccessLayer
         {
             bool Can = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT Found = 1 FROM Tests RIGHT JOIN TestAppointments ON TestAppointments.TestAppointmentID = Tests.TestAppointmentID INNER JOIN LocalDrivingLicenseApplications ON LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID = TestAppointments.LocalDrivingLicenseApplicationID INNER JOIN Applications ON LocalDrivingLicenseApplications.ApplicationID = Applications.ApplicationID WHERE (Applications.ApplicantPersonID = @ID AND IsLocked = 0 AND TestTypeID = @TID AND LocalDrivingLicenseApplications.LicenseClassID = @AID)  OR (Applications.ApplicantPersonID = @ID AND Tests.TestResult = 1 AND TestTypeID = @TID AND LocalDrivingLicenseApplications.LicenseClassID = @AID)";
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@TID", TestTypeID);
-            command.Parameters.AddWithValue("@ID", PersonID);
-            command.Parameters.AddWithValue("@AID", LicenseClassID);
+            SqlCommand command = new SqlCommand("sp_IsEligibleToTakeTest", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@PersonID", PersonID);
+            command.Parameters.AddWithValue("@TestTypeID", TestTypeID);
+            command.Parameters.AddWithValue("@LicenseClassID", LicenseClassID);
             try
             {
                 connection.Open();
@@ -74,8 +74,8 @@ namespace DataAccessLayer
         {
             short count = 0;
             SqlConnection con = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT Count(*) FROM TestAppointments WHERE TestTypeID = @TID AND LocalDrivingLicenseApplicationID = @ID AND IsLocked = 1";
-            SqlCommand command = new SqlCommand(query, con);
+            SqlCommand command = new SqlCommand("sp_CountFailedTestAppointments", con);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID",LocalApplicationID);
             command.Parameters.AddWithValue("@TID", TestTypeID);
             try
@@ -91,8 +91,8 @@ namespace DataAccessLayer
         {
             bool isFound = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT * FROM Tests WHERE TestAppointmentID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_FindTestByAppointmentID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", TestAppointmentID);
             try
             {
@@ -117,8 +117,8 @@ namespace DataAccessLayer
         {
             int ID = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "INSERT INTO [dbo].[Tests]\r\n           ([TestAppointmentID]\r\n           ,[TestResult]\r\n           ,[Notes]\r\n           ,[CreatedByUserID])\r\n     VALUES\r\n           (@TestAppointmentID\r\n           ,@TestResult\r\n           ,@Notes\r\n           ,@UserID); SELECT SCOPE_IDENTITY();";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_AddTest", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@TestAppointmentID", TestAppointmentID);
             command.Parameters.AddWithValue("@TestResult", TestResult);
             if (Notes != "")
@@ -139,8 +139,8 @@ namespace DataAccessLayer
         {
             int rowsAffected = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "UPDATE [dbo].[Tests]\r\n   SET [TestAppointmentID] = @TestAppointmentID\r\n      ,[TestResult] = @TestResult\r\n      ,[Notes] = @Notes\r\n      ,[CreatedByUserID] = @UserID\r\n WHERE  TestID = @ID";
-            SqlCommand command = new SqlCommand(query,connection);
+            SqlCommand command = new SqlCommand("sp_UpdateTest",connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", ID);
             command.Parameters.AddWithValue("@TestAppointmentID", TestAppointmentID);
             command.Parameters.AddWithValue("@TestResult", TestResult);
@@ -159,8 +159,8 @@ namespace DataAccessLayer
         {
             int rowsAffected = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "DELETE FROM Tests WHERE TestID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_DeleteTest", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", testID);
             try
             {

@@ -14,8 +14,8 @@ namespace DataAccessLayer
         {
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT CountryName FROM Countries";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_FetchCountries", connection);
+            command.CommandType = CommandType.StoredProcedure;
             try
             {
                 connection.Open();
@@ -39,8 +39,8 @@ namespace DataAccessLayer
         {
             string countryName = string.Empty;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT CountryName FROM Countries WHERE CountryID = @CountryID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetCountryNameByID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@CountryID", ID);
             try
             {

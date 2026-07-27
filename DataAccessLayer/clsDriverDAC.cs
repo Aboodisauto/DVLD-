@@ -15,8 +15,8 @@ namespace DataAccessLayer
         {
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT Drivers.DriverID As 'Driver ID', Drivers.PersonID As 'Person ID', NationalNo As 'National No', FirstName + ' ' + SecondName + ' ' + ThirdName + ' ' + LastName As 'Full Name', Drivers.CreatedDate, COUNT(CASE WHEN IsActive = 1 THEN 1 ELSE NULL END) As 'Active Licenses' FROM Drivers\r\nINNER JOIN People ON People.PersonID = Drivers.PersonID\r\nINNER JOIN Licenses ON Licenses.DriverID = Drivers.DriverID\r\nGROUP BY Drivers.DriverID,\r\n\t\tDrivers.PersonID,\r\n\t\tNationalNo,\r\n\t\tFirstName,\r\n\t\tSecondName,\r\n\t\tThirdName,\r\n\t\tLastName,\r\n\t\tDrivers.CreatedDate";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetAllDrivers", connection);
+            command.CommandType = CommandType.StoredProcedure;
 
             try
             {
@@ -36,8 +36,8 @@ namespace DataAccessLayer
         {
             int DriverID = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT DriverID FROM Drivers WHERE PersonID = @PersonID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetDriverIDByPersonID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@PersonID", PersonID);
 
             try
@@ -66,8 +66,8 @@ namespace DataAccessLayer
         {
             bool isFound = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT * FROM Drivers WHERE DriverID = @DriverID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_FindDriverByID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@DriverID", DriverID);
 
             try
@@ -92,8 +92,8 @@ namespace DataAccessLayer
         {
             bool isFound = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT * FROM Drivers WHERE PersonID = @PersonID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_FindDriverByPersonID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@PersonID", PersonID);
 
             try
@@ -118,12 +118,8 @@ namespace DataAccessLayer
         {
             int DriverID = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-
-            string query = @"INSERT INTO Drivers (PersonID, CreatedByUserID, CreatedDate)
-                             VALUES (@PersonID, @CreatedByUserID, @CreatedDate);
-                             SELECT SCOPE_IDENTITY();";
-
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_AddNewDriver", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@PersonID", PersonID);
             command.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
             command.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
@@ -146,13 +142,8 @@ namespace DataAccessLayer
         {
             int rowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            // Note: CreatedDate is usually not updated as it tracks creation time
-            string query = @"UPDATE Drivers  
-                             SET PersonID = @PersonID, 
-                                 CreatedByUserID = @CreatedByUserID
-                             WHERE DriverID = @DriverID";
-
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_UpdateDriver", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@DriverID", DriverID);
             command.Parameters.AddWithValue("@PersonID", PersonID);
             command.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
@@ -172,8 +163,8 @@ namespace DataAccessLayer
         {
             int rowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "DELETE FROM Drivers WHERE DriverID = @DriverID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_DeleteDriver", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@DriverID", DriverID);
 
             try
@@ -189,8 +180,8 @@ namespace DataAccessLayer
         {
             bool isFound = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT Found=1 FROM Drivers WHERE PersonID = @PersonID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_IsDriverExistByPersonID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@PersonID", PersonID);
 
             try
@@ -218,8 +209,8 @@ namespace DataAccessLayer
         {
             int ILID = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string quey = "SELECT InternationalLicenseID FROM InternationalLicenses WHERE DriverID = @ID AND isActive = 1";
-            SqlCommand command = new SqlCommand(quey, connection);
+            SqlCommand command = new SqlCommand("sp_GetDriverILID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", driverID);
             try
             {

@@ -16,8 +16,8 @@ namespace DataAccessLayer
         {
             List<string> list = new List<string>();
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT ClassName From LicenseClasses";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetLicenseClassNames", connection);
+            command.CommandType = CommandType.StoredProcedure;
             try
             {
                 connection.Open();
@@ -35,8 +35,8 @@ namespace DataAccessLayer
         {
             decimal res = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT ClassFees From LicenseClasses Where ClassName = @ClassName";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetLicenseFeeByName", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ClassName", ClassName);
             try
             {
@@ -50,8 +50,8 @@ namespace DataAccessLayer
         {
             decimal res = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT ClassFees From LicenseClasses Where LicenseClassID = @ClassID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetLicenseFeeByID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ClassID", ClassID);
             try
             {
@@ -66,8 +66,8 @@ namespace DataAccessLayer
         {
             short ID = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "Select LicenseClassID From LicenseClasses Where ClassName = @ClassName";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetLicenseClassIDByName", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ClassName", ClassName);
             try
             {
@@ -83,8 +83,8 @@ namespace DataAccessLayer
             string Classname = string.Empty;
 
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT ClassName from LicenseClasses WHERE LicenseClassID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetLicenseClassNameByID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID",ClassID);
             try
             {
@@ -99,8 +99,8 @@ namespace DataAccessLayer
         {
             int Period = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT DefaultValidityLength FROM LicenseClasses WHERE LicenseClassID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetLicenseValidationPeriodByID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", ClassID);
             try
             {

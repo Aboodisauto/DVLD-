@@ -15,8 +15,8 @@ namespace DataAccessLayer
         {
             bool Found = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT Found = 1 FROM LocalDrivingLicenseApplications INNER JOIN Applications ON Applications.ApplicationID = LocalDrivingLicenseApplications.ApplicationID\r\nWHERE Applications.ApplicantPersonID = @ApplicantID AND LicenseClassID = @ClassID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_IsThereADuplicate", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ApplicantID", ApplicantID);
             command.Parameters.AddWithValue("@ClassID", LicenseID);
             try
@@ -32,37 +32,8 @@ namespace DataAccessLayer
         {
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = @"
-SELECT 
-    LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID, 
-    LicenseClasses.ClassName, 
-    People.NationalNo, 
-    Applications.ApplicationDate, 
-    (People.FirstName + ' ' + People.SecondName + ' ' + People.ThirdName + ' ' + People.LastName) AS FullName,
-    CASE 
-        WHEN Applications.ApplicationStatus = 1 THEN 'OnGoing'
-        WHEN Applications.ApplicationStatus = 2 THEN 'Cancelled'
-        WHEN Applications.ApplicationStatus = 3 THEN 'Completed'
-    END AS Status,
-    COUNT(CASE WHEN Tests.TestResult = 1 THEN 1 ELSE NULL END) AS PassedCount
-FROM Applications 
-INNER JOIN LocalDrivingLicenseApplications ON Applications.ApplicationID = LocalDrivingLicenseApplications.ApplicationID 
-INNER JOIN People ON Applications.ApplicantPersonID = People.PersonID
-INNER JOIN LicenseClasses ON LocalDrivingLicenseApplications.LicenseClassID = LicenseClasses.LicenseClassID
-LEFT JOIN TestAppointments ON LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID = TestAppointments.LocalDrivingLicenseApplicationID
-LEFT JOIN Tests ON TestAppointments.TestAppointmentID = Tests.TestAppointmentID
-GROUP BY 
-    LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID, 
-    LicenseClasses.ClassName, 
-    People.NationalNo, 
-    Applications.ApplicationDate, 
-    Applications.ApplicationStatus, 
-    People.FirstName, 
-    People.SecondName, 
-    People.ThirdName, 
-    People.LastName
-ORDER BY LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID DESC"; // Added DESC to see new ones first
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_FetchLocalApplications", connection);
+            command.CommandType = CommandType.StoredProcedure;
             try
             {
                 connection.Open();
@@ -89,9 +60,8 @@ ORDER BY LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID DESC";
         {
             int ApplicationID = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "INSERT INTO [dbo].[Applications]\r\n           ([ApplicantPersonID]\r\n           ,[ApplicationDate]\r\n           ,[ApplicationTypeID]\r\n           ,[ApplicationStatus]\r\n           ,[LastStatusDate]\r\n           ,[PaidFees]\r\n           ,[CreatedByUserID])\r\n     VALUES\r\n           (@ApplicantID\r\n           ,@ApplicationDate\r\n           ,@ApplicationType\r\n           ,@ApplicationStatus\r\n           ,@StatusDate\r\n           ,@PaidFees\r\n           ,@UserID);" +
-                "SELECT SCOPE_IDENTITY();";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_AddApplication", connection);
+            command.CommandType = CommandType.StoredProcedure;
             // Assuming your SqlCommand object is named 'command'
             command.Parameters.AddWithValue("@ApplicantID", ApplicantID);
             command.Parameters.AddWithValue("@ApplicationDate", ApplicationDate);
@@ -120,8 +90,8 @@ ORDER BY LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID DESC";
         {
             bool Found = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT * FROM Applications WHERE ApplicationID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_FindApplication", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", ApplicationID);
             try
             {
@@ -149,8 +119,8 @@ ORDER BY LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID DESC";
         {
             int ApplicationID = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "select applicationID from LocalDrivingLicenseApplications WHERE LocalDrivingLicenseApplicationID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetApplicationIDByLocalApplicationID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", LocalApplicationID);
             try
             {
@@ -164,8 +134,8 @@ ORDER BY LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID DESC";
         {
             int rowsAffected = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "DELETE FROM [dbo].[Applications]\r\n      WHERE ApplicationID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_DeleteApplication", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", ApplicationID);
             try
             {
@@ -186,8 +156,8 @@ ORDER BY LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID DESC";
         {
             int rowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "UPDATE [dbo].[Applications]\r\n   SET [ApplicantPersonID] = @ApplicantID\r\n      ,[ApplicationDate] = @ApplicationDate\r\n      ,[ApplicationTypeID] = @ApplicationTypeID\r\n      ,[ApplicationStatus] = @ApplicationStatus\r\n      ,[LastStatusDate] = @StatusDate\r\n      ,[PaidFees] = @PaidFees\r\n      ,[CreatedByUserID] = @UserID\r\n WHERE ApplicationID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_UpdateApplication", connection);
+            command.CommandType = CommandType.StoredProcedure;
             // Link the parameters to your method variables
             command.Parameters.AddWithValue("@ApplicantID", ApplicantID);
             command.Parameters.AddWithValue("@ApplicationDate", ApplicationDate);
@@ -212,8 +182,8 @@ ORDER BY LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID DESC";
         {
             int rowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "UPDATE Applications SET ApplicationStatus = 2, LastStatusDate = @Date WHERE ApplicationID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_CancelApplication", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@Date", DateTime.Now);
             command.Parameters.AddWithValue("@ID", ApplicationID);
             try
@@ -229,8 +199,8 @@ ORDER BY LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID DESC";
         {
             string FullName = string.Empty;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT distinct FirstName + ' ' + SecondName + ' ' + ThirdName + ' ' + LastName As FullName FROM Applications INNER JOIN People ON Applications.ApplicantPersonID = People.PersonID WHERE People.PersonID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetApplicantFullName", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", PersonID);
             try
             {

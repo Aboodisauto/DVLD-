@@ -15,9 +15,8 @@ namespace DVLD_DataAccess
             bool isFound = false;
 
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT * FROM InternationalLicenses WHERE InternationalLicenseID = @InternationalLicenseID";
-            SqlCommand command = new SqlCommand(query, connection);
-
+            SqlCommand command = new SqlCommand("sp_GetInternationalLicenseByID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@InternationalLicenseID", InternationalLicenseID);
 
             try
@@ -55,8 +54,8 @@ namespace DVLD_DataAccess
         {
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT InternationalLicenseID AS 'Int License ID',\r\nApplicationID AS'Application ID',\r\nDriverID AS 'Driver ID',\r\nIssuedUsingLocalLicenseID AS 'L License ID',\r\nIssueDate AS 'Issue Date',\r\nExpirationDate As 'Expiration Date',\r\nIsActive As 'Is Active'\r\nFROM InternationalLicenses";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetAllInternationalLicenses", connection);
+            command.CommandType = CommandType.StoredProcedure;
 
             try
             {
@@ -87,11 +86,8 @@ namespace DVLD_DataAccess
             int InternationalLicenseID = -1;
 
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = @"INSERT INTO InternationalLicenses (ApplicationID, DriverID, IssuedUsingLocalLicenseID, IssueDate, ExpirationDate, IsActive, CreatedByUserID)
-                             VALUES (@ApplicationID, @DriverID, @IssuedUsingLocalLicenseID, @IssueDate, @ExpirationDate, @IsActive, @CreatedByUserID);
-                             SELECT SCOPE_IDENTITY();";
-
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_AddInternationalLicense", connection);
+            command.CommandType = CommandType.StoredProcedure;
 
             command.Parameters.AddWithValue("@ApplicationID", ApplicationID);
             command.Parameters.AddWithValue("@DriverID", DriverID);
@@ -172,11 +168,8 @@ namespace DVLD_DataAccess
         {
             int rowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-
-            string query = @"DELETE InternationalLicenses 
-                             WHERE InternationalLicenseID = @InternationalLicenseID";
-
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_DeleteInternationalLicense", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@InternationalLicenseID", InternationalLicenseID);
 
             try
@@ -200,9 +193,8 @@ namespace DVLD_DataAccess
         {
             bool isFound = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT Found=1 FROM InternationalLicenses WHERE InternationalLicenseID = @InternationalLicenseID";
-            SqlCommand command = new SqlCommand(query, connection);
-
+            SqlCommand command = new SqlCommand("sp_IsInternationalLicenseExist", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@InternationalLicenseID", InternationalLicenseID);
 
             try
@@ -228,9 +220,9 @@ namespace DVLD_DataAccess
         public static DataTable GetAllInternationalLicensesForDriver(int driverID)
         {
             DataTable dt = new DataTable();
-            string query = "SELECT InternationalLicenseID AS 'Int License ID', ApplicationID As 'Application ID', IssuedUsingLocalLicenseID As 'L License ID', IssueDate as 'Issue Date', ExpirationDate AS ' Expiration Date', IsActive as 'Is Active' FROM InternationalLicenses WHERE DriverID = @ID";
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetInternationalLicensesForDriver", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", driverID);
             try
             {

@@ -17,8 +17,8 @@ namespace DataAccessLayer
         {
             int ID = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "INSERT INTO [dbo].[People]\r\n           ([NationalNo]\r\n           ,[FirstName]\r\n           ,[SecondName]\r\n           ,[ThirdName]\r\n           ,[LastName]\r\n           ,[DateOfBirth]\r\n           ,[Gendor]\r\n           ,[Address]\r\n           ,[Phone]\r\n           ,[Email]\r\n           ,[NationalityCountryID]\r\n           ,[ImagePath])\r\n     VALUES\r\n           (@NationalNo\r\n           ,@FirstName\r\n           ,@SecondName\r\n           ,@ThirdName\r\n           ,@LastName\r\n           ,@DateOfBirth\r\n           ,@Gendor\r\n           ,@Address\r\n           ,@Phone\r\n           ,@Email\r\n           ,@NationalityCountryID\r\n           ,@ImagePath); SELECT SCOPE_IDENTITY()";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_AddPerson", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@FirstName", FirstName);
             command.Parameters.AddWithValue("@SecondName", SecondName);
             command.Parameters.AddWithValue("@ThirdName", ThirdName);
@@ -54,8 +54,8 @@ namespace DataAccessLayer
         {
             int Id = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT PersonID From People WHERE NationalNo = @NationalNo";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetPersonIDByNationalNo", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@NationalNo", nationalNo);
             try
             {
@@ -77,10 +77,8 @@ namespace DataAccessLayer
         {
             int RowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "UPDATE People SET FirstName=@FirstName, SecondName=@SecondName, ThirdName=@ThirdName, LastName=@LastName, " +
-                "NationalNo=@NationalNo, Address=@Address, Phone=@Phone, Email=@Email, NationalityCountryID=@Country, Gendor=@Gendor, DateOfBirth=@DateOfBirth, ImagePath=@ImagePath " +
-                "WHERE PersonID=@PersonID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_UpdatePerson", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@PersonID", PersonID);
             command.Parameters.AddWithValue("@FirstName", FirstName);
             command.Parameters.AddWithValue("@SecondName", SecondName);
@@ -117,8 +115,8 @@ namespace DataAccessLayer
         {
             bool isFound = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT * FROM People WHERE PersonID=@PersonID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_FindPersonByID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@PersonID", PersonID);
             try
             {
@@ -157,8 +155,8 @@ namespace DataAccessLayer
         {
             bool isFound = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT * FROM People WHERE NationalNo=@NationalNo";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_FindPersonByNationalNo", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@NationalNo", NationalNo);
             try
             {
@@ -196,8 +194,8 @@ namespace DataAccessLayer
         {
             int RowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "DELETE FROM People WHERE PersonID=@PersonID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_DeletePerson", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@PersonID", PersonID);
             try
             {
@@ -218,8 +216,8 @@ namespace DataAccessLayer
         {
             DataTable dtPeople = new DataTable();
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT        People.PersonID, People.NationalNo, People.FirstName, People.SecondName, People.ThirdName, People.LastName, People.DateOfBirth,CASE Gendor\r\nWHEN 0 THEN 'Male'\r\nWHEN 1 THEN 'Female'\r\nEND AS Gendor, Countries.CountryName,\r\n\r\nPeople.Phone, People.Email\r\nFROM            Countries INNER JOIN\r\n                         People ON Countries.CountryID = People.NationalityCountryID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_FetchPeople", connection);
+            command.CommandType = CommandType.StoredProcedure;
             try
             {
                 connection.Open();
@@ -243,8 +241,8 @@ namespace DataAccessLayer
         {
             bool isFound = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT Found=1 FROM People WHERE PersonID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_DoesPersonExistByID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", ID);
             try
             {
@@ -267,8 +265,8 @@ namespace DataAccessLayer
         {
             bool isFound = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT Found=1 FROM People WHERE NationalNo= @NationalNo";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_DoesPersonExistByNationalNo", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@NationalNo", NationalNo);
             try
             {
@@ -291,8 +289,8 @@ namespace DataAccessLayer
         {
             string NationalNo = null;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT NationalNo FROM People WHERE PersonID= @PersonID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetNationalNo", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@PersonID", PersonID);
             try
             {
@@ -310,13 +308,12 @@ namespace DataAccessLayer
             }
             return NationalNo;
         }
-
         public static int GetPersonIDByDriverID(int driverID)
         {
             int PersonID = -1;
-            string query = "SELECT PersonID FROM Drivers WHERE DriverID = @DriverID";
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetPersonIDByDriverID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@DriverID", driverID);
             try
             {

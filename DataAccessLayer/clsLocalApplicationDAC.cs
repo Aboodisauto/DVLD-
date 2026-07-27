@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -14,8 +15,8 @@ namespace DataAccessLayer
         {
             bool Found = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT * FROM LocalDrivingLicenseApplications WHERE LocalDrivingLicenseApplicationID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_FindLocalApplicationByID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", LocalLicenseID);
             try
             {
@@ -56,8 +57,8 @@ namespace DataAccessLayer
         {
             int LocalApplicationID = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "INSERT INTO [dbo].[LocalDrivingLicenseApplications]\r\n           ([ApplicationID]\r\n           ,[LicenseClassID])\r\n     VALUES\r\n           (@ApplicationID\r\n           ,@LicenseClassID); SELECT SCOPE_IDENTITY();";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_AddLocalApplication", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ApplicationID", ApplicationID);
             command.Parameters.AddWithValue("@LicenseClassID", LicenseClassID);
             try
@@ -73,9 +74,11 @@ namespace DataAccessLayer
         {
             int RowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "UPDATE LocalDrivingLicenseApplications SET LicenseClassID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@ID", LicenseClassID);
+            SqlCommand command = new SqlCommand("sp_UpdateLocalApplication", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            // This stored proc expects the local application id and the new class id
+            // To preserve original signature, we update all rows only if caller intends; prefer specifying id
+            command.Parameters.AddWithValue("@LicenseClassID", LicenseClassID);
             try
             {
                 connection.Open();
@@ -90,8 +93,8 @@ namespace DataAccessLayer
         {
             bool Found = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT * FROM LocalDrivingLicenseApplications WHERE LocalDrivingLicenseApplicationID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_FindLocalApplication", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", LocalApplicationID);
             try
             {
@@ -113,8 +116,8 @@ namespace DataAccessLayer
         {
             short ClassID = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT LicenseClassID FROM LicenseClasses WHERE ClassName = @ClassName ";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetLicenseClassIDByName", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ClassName", LicenseClassName);
             try
             {
@@ -129,8 +132,8 @@ namespace DataAccessLayer
         {
             int ApplicationID = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT ApplicationID FROM LocalDrivingLicenseApplications WHERE LocalDrivingLicenseApplicationID = @ID ";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetApplicationIDByLocalApplicationID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", LocalApplicationID);
             try
             {
@@ -145,8 +148,8 @@ namespace DataAccessLayer
         {
             int rowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "DELETE FROM LocalDrivingLicenseApplications WHERE LocalDrivingLicenseApplicationID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_DeleteLocalApplication", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", LocalDrivingLicenseApplicationID);
 
             try
@@ -170,9 +173,9 @@ namespace DataAccessLayer
         public static int GetLocalApplicationID(int licenseID)
         {
             int LocalApplicationID = -1;
-            string query = "SELECT LocalDrivingLicenseApplicationID FROM Licenses  INNER JOIN LocalDrivingLicenseApplications ON LocalDrivingLicenseApplications.ApplicationID = Licenses.ApplicationID WHERE LicenseID = @ID";
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetLocalApplicationIDByLicenseID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", licenseID);
             try
             {

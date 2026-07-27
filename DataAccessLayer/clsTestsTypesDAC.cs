@@ -16,8 +16,8 @@ namespace DataAccessLayer
         {
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT * FROM TestTypes";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetTestTypes", connection);
+            command.CommandType = CommandType.StoredProcedure;
             try
             {
                 connection.Open();
@@ -43,8 +43,8 @@ namespace DataAccessLayer
             int count = 0;
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT COUNT(*) FROM TestTypes";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetNumberOfTestTypes", connection);
+            command.CommandType = CommandType.StoredProcedure;
             try
             {
                 connection.Open();
@@ -64,8 +64,8 @@ namespace DataAccessLayer
         {
             bool Done = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT * FROM TestTypes wherE TestTypeID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_FindTestTypeByID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", ID);
             try
             {
@@ -88,8 +88,8 @@ namespace DataAccessLayer
         {
             int RowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "UPDATE [dbo].[TestTypes]\r\n   SET [TestTypeTitle] = @Title\r\n      ,[TestTypeDescription] = @Description\r\n      ,[TestTypeFees] = @Fees\r\n WHERE TestTypeID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_UpdateTestType", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", ID);
             command.Parameters.AddWithValue("@Title", Title);
             command.Parameters.AddWithValue("@Description", Description);
@@ -107,8 +107,8 @@ namespace DataAccessLayer
         {
             double fees = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "Select TestTypeFees From TestTypes WHERE TestTypeID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetTestTypeFees", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", ID);
             try
             {
@@ -123,8 +123,8 @@ namespace DataAccessLayer
         {
             double fees = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "Select ApplicationFees From ApplicationTypes WHERE ApplicationTypeID = 7";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetRetakeTestFees", connection);
+            command.CommandType = CommandType.StoredProcedure;
            
             try
             {

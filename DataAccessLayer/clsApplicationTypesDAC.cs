@@ -15,11 +15,8 @@ namespace DataAccessLayer
         {
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-
-            // Changed table to ApplicationTypes
-            string query = "SELECT * FROM ApplicationTypes";
-
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetApplicationTypes", connection);
+            command.CommandType = CommandType.StoredProcedure;
             try
             {
                 connection.Open();
@@ -45,11 +42,8 @@ namespace DataAccessLayer
         {
             int count = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-
-            // Changed table to ApplicationTypes
-            string query = "SELECT COUNT(*) FROM ApplicationTypes";
-
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetNumberOfApplicationTypes", connection);
+            command.CommandType = CommandType.StoredProcedure;
             try
             {
                 connection.Open();
@@ -71,12 +65,8 @@ namespace DataAccessLayer
         {
             bool Done = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-
-            // Updated query and column names
-            // NOTE: Check your database column names. I assumed 'ApplicationTypeID' based on your previous pattern.
-            string query = "SELECT * FROM ApplicationTypes WHERE ApplicationTypeID = @ID";
-
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_FindApplicationType", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", ID);
             try
             {
@@ -102,14 +92,8 @@ namespace DataAccessLayer
         {
             int RowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-
-            // Updated query to remove Description and target ApplicationTypes
-            string query = @"UPDATE [dbo].[ApplicationTypes]
-                             SET [ApplicationTypeTitle] = @Title
-                                ,[ApplicationFees] = @Fees
-                             WHERE ApplicationTypeID = @ID";
-
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_UpdateApplicationType", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", ID);
             command.Parameters.AddWithValue("@Title", Title);
             command.Parameters.AddWithValue("@Fees", Fees);
@@ -128,8 +112,8 @@ namespace DataAccessLayer
         {
             string Name = string.Empty;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT ApplicationTypeTitle From ApplicationTypes WHERE ApplicationTypeID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetApplicationTypeName", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", ApplicatinoTypeID);
             try
             {
@@ -145,8 +129,8 @@ namespace DataAccessLayer
         {
             double fees = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT ApplicationFees From ApplicationTypes WHERE ApplicationTypeID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetApplicationTypeFees", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", iD);
             try
             {

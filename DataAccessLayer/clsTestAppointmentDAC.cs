@@ -15,8 +15,8 @@ namespace DataAccessLayer
         {
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT TestAppointmentID As 'Appointment ID', AppointmentDate, PaidFees, IsLocked FROM TestAppointments WHERE LocalDrivingLicenseApplicationID = @ID AND TestTypeID = @TID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_FetchTestAppointments", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", LocalApplicationID);
             command.Parameters.AddWithValue("@TID", TestTypeID);
             try
@@ -39,8 +39,8 @@ namespace DataAccessLayer
         {
             bool isFound = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT * FROM TestAppointments WHERE TestAppointmentID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_FindTestAppointmentByID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", TestAppointmentID);
             try
             {
@@ -75,26 +75,8 @@ namespace DataAccessLayer
         {
             int ID = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-
-            string query = @"INSERT INTO [dbo].[TestAppointments]
-                           ([TestTypeID]
-                           ,[LocalDrivingLicenseApplicationID]
-                           ,[AppointmentDate]
-                           ,[PaidFees]
-                           ,[CreatedByUserID]
-                           ,[IsLocked]
-                           ,[RetakeTestApplicationID])
-                     VALUES
-                           (@TestTypeID
-                           ,@LocalApplicationID
-                           ,@AppointmentDate
-                           ,@PaidFees
-                           ,@UserID
-                           ,@IsLocked
-                           ,@RetakeApplicationID);
-                     Select SCOPE_IDENTITY();";
-
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_AddTestAppointment", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@TestTypeId", TestTypeID);
             command.Parameters.AddWithValue("@LocalApplicationID", LocalApplicationID);
             command.Parameters.AddWithValue("@AppointmentDate", AppointmentDate);
@@ -122,8 +104,8 @@ namespace DataAccessLayer
         {
             int rowsAffected = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "DELETE FROM TestAppointments WHERE TestAppointmentID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_DeleteTestAppointment", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", ID);
             try
             {
@@ -140,19 +122,8 @@ namespace DataAccessLayer
         {
             int rowsAffected = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-
-            // Fixed missing '=' in LocalDrivingLicenseApplicationID and added RetakeTestApplicationID
-            string query = @"UPDATE [dbo].[TestAppointments]
-                           SET [TestTypeID] = @TestTypeID
-                              ,[LocalDrivingLicenseApplicationID] = @LocalApplicationID
-                              ,[AppointmentDate] = @AppointmentDate
-                              ,[PaidFees] = @PaidFees
-                              ,[CreatedByUserID] = @UserID
-                              ,[IsLocked] = @IsLocked
-                              ,[RetakeTestApplicationID] = @RetakeApplicationID
-                         WHERE TestAppointmentID = @ID";
-
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_UpdateTestAppointment", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", ID);
             command.Parameters.AddWithValue("@TestTypeId", TestTypeID);
             command.Parameters.AddWithValue("@LocalApplicationID", LocalApplicationID);

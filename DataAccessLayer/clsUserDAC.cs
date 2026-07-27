@@ -16,8 +16,8 @@ namespace DataAccessLayer
         {
             bool isFound = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT * FROM Users WHERE UserID = @UserID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_FindUserByID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@UserID", UserID);
             try
             {
@@ -45,8 +45,8 @@ namespace DataAccessLayer
         {
             DataTable dtUsers = new DataTable();
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT UserID as 'User ID',Users.PersonID as 'Person ID',Fullname = FirstName + ' ' + secondname + ' ' + thirdname + ' ' + lastname , Users.UserName, Users.Password, Users.IsActive FROM People Inner join Users ON Users.PersonID = People.PersonID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_FetchUsers", connection);
+            command.CommandType = CommandType.StoredProcedure;
             try
             {
                 connection.Open();
@@ -69,8 +69,8 @@ namespace DataAccessLayer
         {
             int isFound = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT Isfound = 1 FROM Users WHERE UserName = @UserName AND Password = @Password";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_DoesUserExist", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@UserName", username);
             command.Parameters.AddWithValue("@Password", password);
             try
@@ -91,8 +91,8 @@ namespace DataAccessLayer
         {
             int rowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "DELETE FROM Users WHERE UserID = @UserID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_DeleteUser", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@UserID", UserID);
             try
             {
@@ -112,13 +112,13 @@ namespace DataAccessLayer
         {
             int rowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "UPDATE Users SET PersonID = @PersonID, UserName = @UserName, Password = @Password, isActive = @isActive WHERE UserID = @UserID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_UpdateUser", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@UserID", UserID);
             command.Parameters.AddWithValue("@PersonID", PersonID);
             command.Parameters.AddWithValue("@UserName", UserName);
             command.Parameters.AddWithValue("@Password", Password);
-            command.Parameters.AddWithValue("@isActive", isActive);
+            command.Parameters.AddWithValue("@IsActive", isActive);
             try
             {
                 connection.Open();
@@ -137,12 +137,12 @@ namespace DataAccessLayer
         {
             int rowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "INSERT INTO Users (PersonID, UserName, Password, isActive) VALUES (@PersonID, @UserName, @Password, @isActive)";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_AddUser", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@PersonID", PersonID);
             command.Parameters.AddWithValue("@UserName", UserName);
             command.Parameters.AddWithValue("@Password", Password);
-            command.Parameters.AddWithValue("@isActive", isActive);
+            command.Parameters.AddWithValue("@IsActive", isActive);
             try
             {
                 connection.Open();
@@ -161,8 +161,8 @@ namespace DataAccessLayer
         {
             bool isValid = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT COUNT(*) FROM Users WHERE UserName = @UserName AND Password = @Password AND isActive = 1";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_CheckUser", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@UserName", UserName);
             command.Parameters.AddWithValue("@Password", Password);
             try
@@ -183,8 +183,8 @@ namespace DataAccessLayer
         {
             int UserID = -1;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT UserID FROM Users WHERE UserName = @UserName AND Password = @Password AND isActive = 1";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetUserIDByCredentials", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@UserName", Username);
             command.Parameters.AddWithValue("@Password", Password);
             try
@@ -209,8 +209,8 @@ namespace DataAccessLayer
         {
             bool isFound = false;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT * FROM Users WHERE PersonID = @PersonID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetUserByPersonID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@PersonID", PersonID);
             try
             {
@@ -239,8 +239,8 @@ namespace DataAccessLayer
         {
             string UserName = "";
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            string query = "SELECT UserName FROM Users WHERE UserID = @ID";
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("sp_GetUserNameByID", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@ID", UserID);
             try
             {
