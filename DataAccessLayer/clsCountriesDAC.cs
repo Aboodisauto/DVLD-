@@ -60,5 +60,32 @@ namespace DataAccessLayer
             }
             return countryName;
         }
+
+        // Finds a country name by ID. Returns true and sets name if found.
+        public static bool FindCountry(int ID, ref string Name)
+        {
+            Name = string.Empty;
+            using (SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString))
+            using (SqlCommand command = new SqlCommand("sp_GetCountryNameByID", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@CountryID", ID);
+                try
+                {
+                    connection.Open();
+                    object result = command.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        Name = result.ToString();
+                        return true;
+                    }
+                }
+                catch
+                {
+                    // ignore and return false
+                }
+            }
+            return false;
+        }
     }
 }

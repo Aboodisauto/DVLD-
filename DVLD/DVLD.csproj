@@ -283,6 +283,7 @@
     <Compile Include="Users\UserManagement.Designer.cs">
       <DependentUpon>UserManagement.cs</DependentUpon>
     </Compile>
+    <Compile Include="Util\clsUtil.cs" />
     <EmbeddedResource Include="Applications\ApplicationBasicInfo.resx">
       <DependentUpon>ApplicationBasicInfo.cs</DependentUpon>
     </EmbeddedResource>

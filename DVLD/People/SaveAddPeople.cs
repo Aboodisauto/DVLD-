@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Net.Mail;
+using DVLD.Util;
 
 namespace DVLD.People
 {
@@ -18,39 +19,60 @@ namespace DVLD.People
     {
         public delegate void DataBackEventHandler(object sender, int PersonID);
         public DataBackEventHandler dataBack;
-        string newFileName;
         enum enMode { Add, Update};
         enMode mode = enMode.Add;
 
         int PersonID = -1;
         clsPerson person;
-        bool DidEditImage = false;
         private void SetUpEnvironment()
         {
             dateTimePicker1.MaxDate = DateTime.Today.AddYears(-18);
+            dateTimePicker1.MinDate = DateTime.Today.AddYears(-100);
+
             comboBox1.DataSource = clsCountries.FetchCountries();
             Malerb.Checked = true;
+            DetermineByMode();
         }
-        public SaveAddPeople(int PersonID)
+        private void DetermineByMode()
         {
-            InitializeComponent();
-            SetUpEnvironment();
-            this.PersonID = PersonID;
-            if(PersonID == -1)
+            if (mode == enMode.Add)
             {
                 TextPurpose.Text = "Add User";
-                mode = enMode.Add;
                 person = new clsPerson();
                 return;
             }
-            mode = enMode.Update;
-            person = clsPerson.Find(PersonID);
-            if(person != null)
+            person = clsPerson.Find(this.PersonID);
+            if (person != null)
             {
                 TextPurpose.Text = "Update User " + person.ID;
                 _LoadPersonData();
             }
+        }
+        public SaveAddPeople()
+        {
+            InitializeComponent();
+            mode = enMode.Add;
+        }
+        public SaveAddPeople(int PersonID)
+        {
+            InitializeComponent();
+            this.PersonID = PersonID;
+            mode = enMode.Update;
             
+        }
+        private void SetImageBasedOnGender()
+        {
+            if (person.Gender == 0)
+            {
+                Malerb.Checked = true;
+                pictureBox1.Image = Resources.Male_512;
+            }
+            else
+            {
+
+                Femalerb.Checked = true;
+                pictureBox1.Image = Resources.Female_512;
+            }
         }
         private void _LoadPersonData()
         {
@@ -60,7 +82,6 @@ namespace DVLD.People
             LastTB.Text = person.LastName;
             NationalNotb.Text = person.NationalNo;
             dateTimePicker1.Value = person.BirthDate;
-            
             Addresstb.Text = person.Address; 
             phonetb.Text = person.MobileNo;
             EmailTB.Text = person.Email;
@@ -68,23 +89,11 @@ namespace DVLD.People
             if(person.ImagePath != string.Empty && File.Exists(person.ImagePath))
             {
                 pictureBox1.Image = Image.FromFile(person.ImagePath);
-                newFileName = person.ImagePath;
                 removellb.Visible = true;
             }
             else
             {
-                if (person.Gender == 0)
-                {
-                    Malerb.Checked = true;
-                    pictureBox1.Image = Resources.Male_512;
-                }
-                else
-                {
-
-                    Femalerb.Checked = true;
-                    pictureBox1.Image = Resources.Female_512;
-                }
-
+                SetImageBasedOnGender();
             }
         }
         
@@ -140,6 +149,12 @@ namespace DVLD.People
         private void NationalNotb_Validating(object sender, CancelEventArgs e)
         {
             EnablingErrorProvider(sender, e);
+            if(NationalNotb.Text.Trim() != person.NationalNo && clsPerson.DoesPersonExist(NationalNotb.Text.Trim()))
+            {
+                e.Cancel = true;
+                NationalNotb.Focus();
+                errorProvider1.SetError(NationalNotb, "This National Number already exists.");
+            }
         }
 
         private void phonetb_Validating(object sender, CancelEventArgs e)
@@ -199,7 +214,7 @@ namespace DVLD.People
             person.MobileNo = phonetb.Text;
             person.Email = EmailTB.Text;
             person.CountryID = comboBox1.SelectedIndex + 1;
-            person.ImagePath = newFileName;
+            person.ImagePath = pictureBox1.ImageLocation;
             
             
 
@@ -213,10 +228,10 @@ namespace DVLD.People
 
             if(openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                pictureBox1.Image.Dispose();
-                pictureBox1.Image = Image.FromFile(openFileDialog1.FileName);
+                
+                pictureBox1.ImageLocation = openFileDialog1.FileName;
+                pictureBox1.Image = null;
                 removellb.Visible = true;
-                DidEditImage = true;
             }
         }
 
@@ -224,28 +239,34 @@ namespace DVLD.People
         {
             this.Close();
         }
-        private void _SavePictureIntoDestinationFolder()
+        private bool _HandleImage()
         {
-            if (!DidEditImage)
-                return;
-            if (openFileDialog1.FileName == string.Empty)
-                return;
-            string destinationFolder = "C:\\DVLDPhotos";
-            if (!Directory.Exists(destinationFolder))
+            if(person.ImagePath != pictureBox1.ImageLocation)
             {
-                Directory.CreateDirectory(destinationFolder);
+                if(person.ImagePath != string.Empty && File.Exists(person.ImagePath))
+                {
+                    try
+                    {
+                        File.Delete(person.ImagePath);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Failed to delete the old image: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
             }
-            
-            if (mode == enMode.Add) 
+            if(pictureBox1.ImageLocation != null)
             {
-                string guid = Guid.NewGuid().ToString();
-                string extension = Path.GetExtension(openFileDialog1.FileName);
-                newFileName = Path.Combine(destinationFolder, guid + extension);
+                string sourceFilePath = pictureBox1.ImageLocation;
+                if(clsUtil.CopyFileToImageFolder(ref sourceFilePath))
+                {
+                    pictureBox1.ImageLocation = sourceFilePath;
+                    return true;
+                }
+                return false;
             }
-            
-            File.Copy(openFileDialog1.FileName, newFileName, true);
-
-        
+            return true;
         }
         private void Savebtn_Click(object sender, EventArgs e)
         {
@@ -253,21 +274,45 @@ namespace DVLD.People
             {
                 return;
             }
-            _SavePictureIntoDestinationFolder();
-            _LoadDataIntoPerson();
             
+            if (!_HandleImage())
+            {
+                return;
+            }
+            _LoadDataIntoPerson();
             if (person.Save())
             {
                 
                 MessageBox.Show("User information saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if(dataBack != null)
                     dataBack.Invoke(this, person.ID);
+                mode = enMode.Update;
                 this.Close();
 
             }
             else
             {
                 MessageBox.Show("Failed to save user information.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SaveAddPeople_Load(object sender, EventArgs e)
+        {
+            SetUpEnvironment();
+        }
+
+        private void removellb_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            pictureBox1.Image.Dispose();
+            pictureBox1.ImageLocation = null;
+            removellb.Visible = false;
+            if (Malerb.Checked)
+            {
+                pictureBox1.Image = Resources.Male_512;
+            }
+            else
+            {
+                pictureBox1.Image = Resources.Female_512;
             }
         }
     }

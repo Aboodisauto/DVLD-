@@ -159,11 +159,14 @@ namespace DataAccessLayer
             command.Parameters.AddWithValue("@IsActive", IsActive);
             command.Parameters.AddWithValue("@IssueReason", IssueReason);
             command.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
-
             try
             {
                 connection.Open();
-                rowsAffected = command.ExecuteNonQuery();
+                object result = command.ExecuteScalar();
+                if (result != null && int.TryParse(result.ToString(), out int r))
+                    rowsAffected = r;
+                else
+                    rowsAffected = command.ExecuteNonQuery();
             }
             catch (Exception ex) { File.AppendAllText(clsSettingsDAC.LogPath, DateTime.Now + " " + ex.Message + "\n"); }
             finally { connection.Close(); }

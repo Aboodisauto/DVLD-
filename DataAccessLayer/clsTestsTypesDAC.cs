@@ -97,9 +97,13 @@ namespace DataAccessLayer
             try
             {
                 connection.Open();
-                RowsAffected = command.ExecuteNonQuery();
-
-            }catch(Exception ex) { File.AppendAllText(clsSettingsDAC.LogPath, DateTime.Now + ex.Message + "\n"); }
+                object result = command.ExecuteScalar();
+                if (result != null && int.TryParse(result.ToString(), out int r))
+                    RowsAffected = r;
+                else
+                    RowsAffected = command.ExecuteNonQuery();
+            }
+            catch(Exception ex) { File.AppendAllText(clsSettingsDAC.LogPath, DateTime.Now + ex.Message + "\n"); }
             finally { connection.Close(); }
             return RowsAffected > 0;
         }

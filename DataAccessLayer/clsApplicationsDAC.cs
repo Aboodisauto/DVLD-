@@ -73,8 +73,11 @@ namespace DataAccessLayer
             try
             {
                 connection.Open();
-                ApplicationID = Convert.ToInt32(command.ExecuteScalar());
-            }catch(Exception ex) { File.AppendAllText(clsSettingsDAC.LogPath, DateTime.Now + ex.Message + "\n"); }
+                object result = command.ExecuteScalar();
+                if (result != null && int.TryParse(result.ToString(), out int id))
+                    ApplicationID = id;
+            }
+            catch(Exception ex) { File.AppendAllText(clsSettingsDAC.LogPath, DateTime.Now + ex.Message + "\n"); }
             finally { connection.Close(); }
             return ApplicationID;
         }
@@ -172,9 +175,13 @@ namespace DataAccessLayer
             try
             {
                 connection.Open();
-                rowsAffected = command.ExecuteNonQuery();
-
-            }catch(Exception ex) { File.AppendAllText(clsSettingsDAC.LogPath, DateTime.Now + ex.Message + "\n"); }
+                object result = command.ExecuteScalar();
+                if (result != null && int.TryParse(result.ToString(), out int r))
+                    rowsAffected = r;
+                else
+                    rowsAffected = command.ExecuteNonQuery();
+            }
+            catch(Exception ex) { File.AppendAllText(clsSettingsDAC.LogPath, DateTime.Now + ex.Message + "\n"); }
             finally { connection.Close(); }
             return rowsAffected > 0;
         }
@@ -189,7 +196,11 @@ namespace DataAccessLayer
             try
             {
                 connection.Open();
-                rowsAffected = command.ExecuteNonQuery();
+                object result = command.ExecuteScalar();
+                if (result != null && int.TryParse(result.ToString(), out int r))
+                    rowsAffected = r;
+                else
+                    rowsAffected = command.ExecuteNonQuery();
             }
             catch (Exception ex) { File.AppendAllText(clsSettingsDAC.LogPath, DateTime.Now + ex.Message + "\n"); }
             finally { connection.Close(); }

@@ -97,7 +97,11 @@ namespace DataAccessLayer
             try
             {
                 connection.Open();
-                rowsAffected = command.ExecuteNonQuery();
+                object result = command.ExecuteScalar();
+                if (result != null && int.TryParse(result.ToString(), out int r))
+                    rowsAffected = r;
+                else
+                    rowsAffected = command.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
@@ -122,7 +126,11 @@ namespace DataAccessLayer
             try
             {
                 connection.Open();
-                rowsAffected = command.ExecuteNonQuery();
+                object result = command.ExecuteScalar();
+                if (result != null && int.TryParse(result.ToString(), out int r))
+                    rowsAffected = r;
+                else
+                    rowsAffected = command.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
@@ -146,7 +154,11 @@ namespace DataAccessLayer
             try
             {
                 connection.Open();
-                rowsAffected = command.ExecuteNonQuery();
+                object result = command.ExecuteScalar();
+                if (result != null && int.TryParse(result.ToString(), out int r))
+                    rowsAffected = r;
+                else
+                    rowsAffected = command.ExecuteNonQuery();
             }
             catch (Exception ex)
             {

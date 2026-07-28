@@ -27,6 +27,7 @@ namespace BussinessLayer
         public string NationalNo { get; set; }
         public DateTime BirthDate { get; set; }
         public int CountryID { get; set; }
+        public clsCountries Country;
         public string Address { get; set; }
         public string Email { get; set; }
         public string MobileNo { get; set; }
@@ -60,6 +61,7 @@ namespace BussinessLayer
             this.NationalNo = NationalNo;
             this.BirthDate = BirthDate;
             this.CountryID = CountryID;
+            this.Country = clsCountries.Find(CountryID);
             this.Address = Address;
             this.Email = Email;
             this.MobileNo = MobileNo;

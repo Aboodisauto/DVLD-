@@ -9,6 +9,28 @@ namespace BussinessLayer
 {
     public class clsCountries
     {
+        public int ID { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public clsCountries()
+        {
+            ID = -1;
+            Name = "";
+        }
+        public clsCountries(int ID, string Name)
+        {
+            this.ID = ID;
+            this.Name = Name;
+        }
+        public static clsCountries Find(int ID)
+        {
+            string Name = "";
+            if (clsCountriesDAC.FindCountry(ID, ref Name))
+            {
+                return new clsCountries(ID, Name);
+            }
+            return null;
+        }
+        
         public static string[] FetchCountries()
         {
             DataTable dt = clsCountriesDAC.FetchCountries();

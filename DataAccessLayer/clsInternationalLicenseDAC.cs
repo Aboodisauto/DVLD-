@@ -101,7 +101,6 @@ namespace DVLD_DataAccess
             {
                 connection.Open();
                 object result = command.ExecuteScalar();
-
                 if (result != null && int.TryParse(result.ToString(), out int insertedID))
                 {
                     InternationalLicenseID = insertedID;
@@ -149,7 +148,11 @@ namespace DVLD_DataAccess
             try
             {
                 connection.Open();
-                rowsAffected = command.ExecuteNonQuery();
+                object result = command.ExecuteScalar();
+                if (result != null && int.TryParse(result.ToString(), out int r))
+                    rowsAffected = r;
+                else
+                    rowsAffected = command.ExecuteNonQuery();
             }
             catch (Exception ex)
             {

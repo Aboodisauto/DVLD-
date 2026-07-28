@@ -90,7 +90,7 @@ namespace DVLD.People
 
         private void AddPersonbtn_Click(object sender, EventArgs e)
         {
-            Form AddSavefrm = new SaveAddPeople(-1);
+            Form AddSavefrm = new SaveAddPeople();
             AddSavefrm.ShowDialog();
             People = clsPerson.FetchPeople();
             _RefershPeopleList(People);

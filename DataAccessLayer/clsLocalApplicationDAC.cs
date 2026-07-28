@@ -64,7 +64,9 @@ namespace DataAccessLayer
             try
             {
                 connection.Open();
-                LocalApplicationID = Convert.ToInt32(command.ExecuteScalar());
+                object result = command.ExecuteScalar();
+                if (result != null && int.TryParse(result.ToString(), out int id))
+                    LocalApplicationID = id;
             }
             catch (Exception ex) { File.AppendAllText(clsSettingsDAC.LogPath, DateTime.Now + ex.Message + "\n"); }
             finally { connection.Close(); }
@@ -82,8 +84,11 @@ namespace DataAccessLayer
             try
             {
                 connection.Open();
-                RowsAffected = command.ExecuteNonQuery();
-
+                object result = command.ExecuteScalar();
+                if (result != null && int.TryParse(result.ToString(), out int r))
+                    RowsAffected = r;
+                else
+                    RowsAffected = command.ExecuteNonQuery();
             }
             catch (Exception ex) { File.AppendAllText(clsSettingsDAC.LogPath, DateTime.Now + ex.Message + "\n"); }
             finally { connection.Close(); }
@@ -155,7 +160,11 @@ namespace DataAccessLayer
             try
             {
                 connection.Open();
-                rowsAffected = command.ExecuteNonQuery();
+                object result = command.ExecuteScalar();
+                if (result != null && int.TryParse(result.ToString(), out int r))
+                    rowsAffected = r;
+                else
+                    rowsAffected = command.ExecuteNonQuery();
             }
             catch (Exception ex)
             {

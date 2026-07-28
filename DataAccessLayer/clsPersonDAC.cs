@@ -37,8 +37,10 @@ namespace DataAccessLayer
             try
             {
                 connection.Open();
-                ID = Convert.ToInt32(command.ExecuteScalar());
-
+                // ExecuteScalar returns the new ID (e.g., SELECT SCOPE_IDENTITY())
+                object result = command.ExecuteScalar();
+                if (result != null && int.TryParse(result.ToString(), out int inserted))
+                    ID = inserted;
             }
             catch (Exception ex)
             {
@@ -98,7 +100,7 @@ namespace DataAccessLayer
             try
             {
                 connection.Open();
-                RowsAffected = command.ExecuteNonQuery();
+                RowsAffected = Convert.ToInt32(command.ExecuteScalar());
             }
             catch (Exception ex)
             {
