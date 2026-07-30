@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,11 @@ namespace DVLD.People
         public void _LoadData() 
         {
             person = clsPerson.Find(PersonId);
-
+            if (person == null)
+            {
+                MessageBox.Show("Person Not Found !");
+                return;
+            }
             IDlb.Text = PersonId.ToString();
             nameLB.Text = person.FullName;
             NationalNoLB.Text = person.NationalNo;
@@ -29,6 +34,11 @@ namespace DVLD.People
             AddressLB.Text = person.Address;
             EmailLB.Text = person.Email;
             DateOfBithLB.Text = person.BirthDate.ToShortDateString();
+            _LoadPersonImage();
+
+        }
+        private void _LoadPersonImage()
+        {
             if (person.Gender == 0)
             {
                 pictureBox1.Image = Resources.Male_512;
@@ -39,8 +49,18 @@ namespace DVLD.People
                 pictureBox1.Image = Resources.Female_512;
                 GenderLB.Text = "Female";
             }
-            pictureBox1.ImageLocation = person.ImagePath;
-
+            string ImagePath = person.ImagePath;
+            if(ImagePath != null && ImagePath != "")
+            {
+                if(File.Exists(ImagePath))
+                {
+                    pictureBox1.ImageLocation = ImagePath;
+                }
+                else
+                {
+                    MessageBox.Show("Image Not Found !");
+                }
+            }
         }
         public PeopleInformation()
         {
@@ -50,6 +70,13 @@ namespace DVLD.People
         private void PeopleInformation_Load(object sender, EventArgs e)
         {
             
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            SaveAddPeople saveAddPeople = new SaveAddPeople(PersonId);
+            saveAddPeople.ShowDialog();
+            _LoadData();
         }
     }
 }

@@ -51,3 +51,4 @@ D:\Important Project\DVLD Project\DVLD\obj\Debug\DVLD.Applications.ReplacementFo
 D:\Important Project\DVLD Project\DVLD\obj\Debug\DVLD.License.DetainLicense.resources
 D:\Important Project\DVLD Project\DVLD\obj\Debug\DVLD.License.ReleaseLicense.resources
 D:\Important Project\DVLD Project\DVLD\obj\Debug\DVLD.License.ManageDetainedLicenses.resources
+D:\Important Project\DVLD Project\DVLD\obj\Debug\DVLD.People.FindPeoplefrm.resources

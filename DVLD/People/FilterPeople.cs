@@ -27,6 +27,7 @@ namespace DVLD.People
         {
             InitializeComponent();
             comboBox1.SelectedIndex = 0;
+            peopleInformation1.linkLabel1.Enabled = false;
         }
         private bool CheckForValidality(string Filter,ref int PersonId)
         {
@@ -47,8 +48,8 @@ namespace DVLD.People
             }
             
             peopleInformation1.PersonId = PersonID;
+            peopleInformation1.linkLabel1.Enabled = true;
             peopleInformation1._LoadData();
-            linkLabel1.Enabled = true;
         }
         private void FindPersonByNationalNo(string NationalNo)
         {
@@ -58,8 +59,8 @@ namespace DVLD.People
                 return;
             }
             peopleInformation1.PersonId = PersonID =clsPerson.GetPersonID(NationalNo);
+            peopleInformation1.linkLabel1.Enabled = true;
             peopleInformation1._LoadData();
-            linkLabel1.Enabled = true;
         }
         
         private void Findbtn_Click(object sender, EventArgs e)
@@ -89,7 +90,7 @@ namespace DVLD.People
 
         private void Addbtn_Click(object sender, EventArgs e)
         {
-            SaveAddPeople frm = new SaveAddPeople(-1);
+            SaveAddPeople frm = new SaveAddPeople();
             frm.dataBack += OnCloseAdding;
             frm.ShowDialog();
         }
@@ -107,10 +108,17 @@ namespace DVLD.People
             peopleInformation1._LoadData();
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void FilterTB_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Form frm = new SaveAddPeople(peopleInformation1.PersonId);
-            frm.ShowDialog(); peopleInformation1._LoadData();
+            if(e.KeyChar == (char)Keys.Enter)
+            {
+                Findbtn.PerformClick();
+            }
+            if(comboBox1.Text == "ID")
+            {
+                e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+            }
+
         }
     }
 }

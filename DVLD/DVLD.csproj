@@ -185,6 +185,12 @@
     <Compile Include="People\FilterPeople.Designer.cs">
       <DependentUpon>FilterPeople.cs</DependentUpon>
     </Compile>
+    <Compile Include="People\FindPeoplefrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="People\FindPeoplefrm.Designer.cs">
+      <DependentUpon>FindPeoplefrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="People\ManageDrivers.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -352,6 +358,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="People\FilterPeople.resx">
       <DependentUpon>FilterPeople.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="People\FindPeoplefrm.resx">
+      <DependentUpon>FindPeoplefrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="People\ManageDrivers.resx">
       <DependentUpon>ManageDrivers.cs</DependentUpon>

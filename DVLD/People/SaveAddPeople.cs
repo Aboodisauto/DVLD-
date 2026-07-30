@@ -88,7 +88,7 @@ namespace DVLD.People
             comboBox1.SelectedIndex = person.CountryID - 1;
             if(person.ImagePath != string.Empty && File.Exists(person.ImagePath))
             {
-                pictureBox1.Image = Image.FromFile(person.ImagePath);
+                pictureBox1.ImageLocation = person.ImagePath;
                 removellb.Visible = true;
             }
             else

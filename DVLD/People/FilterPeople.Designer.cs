@@ -31,7 +31,6 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.FilterTB = new System.Windows.Forms.TextBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.Addbtn = new System.Windows.Forms.Button();
             this.Findbtn = new System.Windows.Forms.Button();
             this.peopleInformation1 = new DVLD.People.PeopleInformation();
@@ -44,48 +43,40 @@
             this.comboBox1.Items.AddRange(new object[] {
             "PersonID",
             "NationalNo"});
-            this.comboBox1.Location = new System.Drawing.Point(61, 63);
+            this.comboBox1.Location = new System.Drawing.Point(81, 78);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(129, 21);
+            this.comboBox1.Size = new System.Drawing.Size(171, 24);
             this.comboBox1.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 66);
+            this.label1.Location = new System.Drawing.Point(4, 81);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 16);
+            this.label1.Size = new System.Drawing.Size(65, 20);
             this.label1.TabIndex = 2;
             this.label1.Text = "Filter :";
             // 
             // FilterTB
             // 
-            this.FilterTB.Location = new System.Drawing.Point(196, 62);
+            this.FilterTB.Location = new System.Drawing.Point(261, 76);
+            this.FilterTB.Margin = new System.Windows.Forms.Padding(4);
             this.FilterTB.Name = "FilterTB";
-            this.FilterTB.Size = new System.Drawing.Size(288, 20);
+            this.FilterTB.Size = new System.Drawing.Size(383, 22);
             this.FilterTB.TabIndex = 3;
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Enabled = false;
-            this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel1.Location = new System.Drawing.Point(599, 177);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(139, 20);
-            this.linkLabel1.TabIndex = 6;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Edit Person Info";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.FilterTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FilterTB_KeyPress);
             // 
             // Addbtn
             // 
             this.Addbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Addbtn.Image = global::DVLD.Properties.Resources.Add_Person_40;
-            this.Addbtn.Location = new System.Drawing.Point(538, 47);
+            this.Addbtn.Location = new System.Drawing.Point(717, 58);
+            this.Addbtn.Margin = new System.Windows.Forms.Padding(4);
             this.Addbtn.Name = "Addbtn";
-            this.Addbtn.Size = new System.Drawing.Size(42, 46);
+            this.Addbtn.Size = new System.Drawing.Size(56, 57);
             this.Addbtn.TabIndex = 5;
             this.Addbtn.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.Addbtn.UseVisualStyleBackColor = true;
@@ -96,9 +87,10 @@
             this.Findbtn.AutoSize = true;
             this.Findbtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Findbtn.Image = global::DVLD.Properties.Resources.SearchPerson;
-            this.Findbtn.Location = new System.Drawing.Point(490, 47);
+            this.Findbtn.Location = new System.Drawing.Point(653, 58);
+            this.Findbtn.Margin = new System.Windows.Forms.Padding(4);
             this.Findbtn.Name = "Findbtn";
-            this.Findbtn.Size = new System.Drawing.Size(42, 46);
+            this.Findbtn.Size = new System.Drawing.Size(56, 57);
             this.Findbtn.TabIndex = 4;
             this.Findbtn.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.Findbtn.UseVisualStyleBackColor = true;
@@ -106,25 +98,26 @@
             // 
             // peopleInformation1
             // 
-            this.peopleInformation1.Location = new System.Drawing.Point(3, 90);
+            this.peopleInformation1.Location = new System.Drawing.Point(4, 111);
+            this.peopleInformation1.Margin = new System.Windows.Forms.Padding(5);
             this.peopleInformation1.Name = "peopleInformation1";
             this.peopleInformation1.PersonId = 0;
-            this.peopleInformation1.Size = new System.Drawing.Size(822, 438);
+            this.peopleInformation1.Size = new System.Drawing.Size(1096, 539);
             this.peopleInformation1.TabIndex = 0;
             // 
             // FilterPeople
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.Addbtn);
             this.Controls.Add(this.Findbtn);
             this.Controls.Add(this.FilterTB);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.peopleInformation1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FilterPeople";
-            this.Size = new System.Drawing.Size(847, 531);
+            this.Size = new System.Drawing.Size(1129, 654);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -138,6 +131,5 @@
         private System.Windows.Forms.TextBox FilterTB;
         private System.Windows.Forms.Button Findbtn;
         private System.Windows.Forms.Button Addbtn;
-        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }
