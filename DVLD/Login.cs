@@ -1,16 +1,17 @@
-﻿using System;
+﻿using BussinessLayer;
+using DVLD.Util;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BussinessLayer;
-using System.IO;
-using Microsoft.Win32;
-using System.Security.Cryptography;
 
 namespace DVLD
 {
@@ -42,8 +43,8 @@ namespace DVLD
         }
         private void _ShowMainForm()
         {
-            Form frm = new Form1();
-            this.Close();
+            this.Hide();
+            Form frm = new Form1(this);
             frm.ShowDialog();
             
         }
@@ -63,9 +64,7 @@ namespace DVLD
             if(UserPass != null)
             {
                 string[] lines = UserPass.Split(':');
-                if (lines.Length < 2)
-                    return false;
-                if (!clsUser.Login(lines[0], lines[1]))
+                if (lines[0] == "" || !clsUser.Login(lines[0], lines[1]))
                     return false;
             }
             else
@@ -85,9 +84,9 @@ namespace DVLD
             }
             if (checkBox1.Checked)
             {
-                _RemeberData(userName,password);
+                clsUtil.RemeberMe(userName, password);
             }
-            
+
             _ShowMainForm();
             
         }

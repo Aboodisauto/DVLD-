@@ -15,6 +15,7 @@ namespace BussinessLayer
         enMode mode = enMode.AddNew;
         public int UserID { get; set; }
         public int PersonID { get; set; }
+        public clsPerson PersonInfo { get; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public bool isActive { get; set; }
@@ -26,6 +27,7 @@ namespace BussinessLayer
             this.UserName = UserName;
             this.Password = Password;
             this.isActive = isActive;
+            this.PersonInfo = clsPerson.Find(PersonID);
             mode = enMode.Update;
         }
         public clsUser()

@@ -145,7 +145,7 @@ namespace DataAccessLayer
         {
             int rowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
-            SqlCommand command = new SqlCommand("sp_AddUser", connection);
+            SqlCommand command = new SqlCommand("dbo.usp_AddUser", connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@PersonID", PersonID);
             command.Parameters.AddWithValue("@UserName", UserName);
@@ -162,6 +162,7 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
+                throw new Exception("Database Error: " + ex.Message);
             }
             finally
             {

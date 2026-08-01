@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -50,6 +52,40 @@ namespace DVLD.Util
                 return false;
             }
         }
-    
+        public static string HashPassword(string Password)
+        {
+            if (string.IsNullOrEmpty(Password))
+                return string.Empty;
+
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                // Convert input string to byte array
+                byte[] bytes = Encoding.UTF8.GetBytes(Password);
+
+                // Compute hash bytes
+                byte[] hashBytes = sha256.ComputeHash(bytes);
+
+                // Convert byte array to hexadecimal string
+                return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+            }
+        }
+        public static bool RemeberMe(string Username, string Password)
+        {
+            string keyPath = @"HKEY_CURRENT_USER\SOFTWARE\DVLD\RememberMe";
+            string keyValue = Username + ":" + Password;
+            string valueName = "RememberMe";
+            try
+            {
+                Registry.SetValue(keyPath, valueName, keyValue, RegistryValueKind.String);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error While Clearing Data: \n" + ex.Message);
+                return false;
+            }
+            return true;
+        }
     }
 }
+        

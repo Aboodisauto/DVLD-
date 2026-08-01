@@ -19,6 +19,7 @@ namespace DVLD.Users
             clsUser user = clsUser.Find(UserId);
             userInfo1.user = user;
             userInfo1.LoadData();
+            userInfo1.peopleInformation1.linkLabel1.Enabled = false;
         }
 
         private void button1_Click(object sender, EventArgs e)

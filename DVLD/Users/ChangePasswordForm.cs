@@ -1,4 +1,5 @@
 ﻿using BussinessLayer;
+using DVLD.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace DVLD.Users
 {
@@ -33,7 +35,7 @@ namespace DVLD.Users
         private bool _ChangePassword()
         {
             bool Changed = false;
-            User.Password = NewPasswordTb.Text;
+            User.Password = clsUtil.HashPassword(NewPasswordTb.Text.Trim());
             if (User.Save())
             {
                 Changed = true;
@@ -55,7 +57,7 @@ namespace DVLD.Users
         }
         private bool CheckCurrentPassword()
         {
-            return (Currenttb.Text == User.Password);
+            return (clsUtil.HashPassword(Currenttb.Text) == User.Password);
         }
 
         private void button1_Click(object sender, EventArgs e)

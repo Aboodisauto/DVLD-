@@ -19,20 +19,15 @@ namespace DVLD.Users
         enum mode { Add, Edit }
         mode m = mode.Add;
         clsUser user;
+        public AddSaveUser()
+        {
+            InitializeComponent();
+        }
         public AddSaveUser(int UserId)
         {
             InitializeComponent();
-            if(UserId != -1)
-            {
-                this.UserId = UserId;
-                user = clsUser.Find(UserId);
-                filterPeople1.Enabled = false;
-                
-                m = mode.Edit;
-                _LoadUserData();
-                return;
-            }
-            user = new clsUser();
+            this.UserId = UserId;
+            m = mode.Edit;
         }
         private void _LoadUserData()
         {
@@ -41,8 +36,8 @@ namespace DVLD.Users
             {
                 idLabel.Text = user.UserID.ToString();
                 Usernametb.Text = user.UserName;
-                Passwordtb.Text = user.Password;
-                cPasswordtb.Text = user.Password;
+                Passwordtb.Text = string.Empty;
+                cPasswordtb.Text = string.Empty;
                 checkBox1.Checked = user.isActive;
                 filterPeople1.PersonID = user.PersonID;
                 filterPeople1.LoadPersonData();
@@ -56,27 +51,28 @@ namespace DVLD.Users
         private void LoadData()
         {
             user.UserName = Usernametb.Text.ToString();
-            user.Password = Passwordtb.Text.ToString();
+            user.Password = Util.clsUtil.HashPassword(Passwordtb.Text.ToString());
             user.isActive = checkBox1.Checked;
         }
-        private void _LoadDataIntoUser()
+        private bool _LoadDataIntoUser()
         {
             user = clsUser.GetUserByID(PersonID);
             if (user == null)
             {
-                user = new clsUser();
                 user.PersonID = PersonID;
                 LoadData();
+                return true;
             }
             else
             {
                 if (m != mode.Edit)
                 {
                     MessageBox.Show("User Already Exists for this person !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    return false;
                 }
                 LoadData();
             }
+            return true;
            
         }
         private void button1_Click(object sender, EventArgs e)
@@ -94,6 +90,7 @@ namespace DVLD.Users
         {
             PersonID = obj;
             button1.Enabled = true;
+            Savebtn.Enabled = true;
         }
         private bool CheckPassword()
         {
@@ -107,7 +104,10 @@ namespace DVLD.Users
                 errorProvider1.SetError(cPasswordtb, "The passwords doesn't match");
                 return;
             }
-            _LoadDataIntoUser();
+            if (!_LoadDataIntoUser())
+            {
+                return;
+            }
             if(user.Save())
             {
                 MessageBox.Show("User Saved Successfully !", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -124,6 +124,39 @@ namespace DVLD.Users
             Form frm = new SaveAddPeople(filterPeople1.PersonID);
             frm.ShowDialog();
             filterPeople1.LoadPersonData();
+        }
+        private void ResetDefaultValues()
+        {
+            Usernametb.Text = "";
+            Passwordtb.Text = "";
+            cPasswordtb.Text = "";
+            checkBox1.Checked = false;
+            filterPeople1.PersonID = -1;
+            if(m == mode.Add)
+            {
+                filterPeople1.Enabled = true;
+                Savebtn.Enabled = false;
+                button1.Enabled = false;
+                user = new clsUser();
+                this.Text = "Add New User";
+            }
+            else
+            {
+                filterPeople1.Enabled = false;
+                button1.Enabled = true;
+                Savebtn.Enabled = true;
+                user = clsUser.Find(UserId);
+                PersonID = user.PersonID;
+                this.Text = "Edit User";
+            }
+        }
+        private void AddSaveUser_Load(object sender, EventArgs e)
+        {
+            ResetDefaultValues();
+            if(m == mode.Edit)
+            {
+                _LoadUserData();
+            }
         }
 
         private void Closebtn_Click(object sender, EventArgs e)

@@ -125,7 +125,7 @@ namespace DVLD.Users
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form frm = new AddSaveUser(-1);
+            Form frm = new AddSaveUser();
             frm.ShowDialog();
             Users = clsUser.FetchUsers();
             _RefreshUsers(Users);
@@ -137,6 +137,11 @@ namespace DVLD.Users
             frm.ShowDialog();
             Users = clsUser.FetchUsers();
             _RefreshUsers(Users);
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }

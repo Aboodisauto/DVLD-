@@ -11,30 +11,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using Microsoft.Win32;
+using DVLD.Util;
 
 namespace DVLD
 {
     public partial class Form1 : Form
     {
-
-
-        private void _ClearRemeber()
-        {
-            string keyPath = @"HKEY_CURRENT_USER\SOFTWARE\DVLD\RememberMe";
-            string valueName = "RememberMe";
-            try
-            {
-                Registry.SetValue(keyPath, valueName, "", RegistryValueKind.String);
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error While Clearing Data: \n" + ex.Message);
-            }
-        }   
-        public Form1()
+        Login LoginFrm;
+        public Form1( Login Loginfrm)
         {
             InitializeComponent();
+            this.LoginFrm = Loginfrm;
         }
 
         private void peopleToolStripMenuItem_Click(object sender, EventArgs e)
@@ -61,11 +48,10 @@ namespace DVLD
 
         private void signOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _ClearRemeber();
-            this.Hide();
+            clsUtil.RemeberMe("", "");
+            clsUser.CurrentUser = null;
+            LoginFrm.Show();
             this.Close();
-            Form frm = new Login();
-            frm.ShowDialog();
         }
 
         private void AccountInformationToolMenuStrip_Click(object sender, EventArgs e)
