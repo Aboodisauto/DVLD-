@@ -13,7 +13,7 @@ namespace BussinessLayer
     {
         public int LocalApplicationID { get; set; }
         public int LicenseClassID { get; set; }
-
+        public string PersonFullName {  get { return base.ApplicantInfo.FullName;  }  }
         public clsLocalApplication() : base()
         {
             ApplicationType = 1;

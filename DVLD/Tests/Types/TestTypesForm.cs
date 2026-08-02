@@ -19,7 +19,7 @@ namespace DVLD.Tests.Types
         }
         private int _GetCounOfTypes()
         {
-            return clsTestsTypes.AmountOfTypes();
+            return dataGridView1.Rows.Count - 1; // Subtract 1 to exclude the header row
         }
         public TestTypesForm()
         {

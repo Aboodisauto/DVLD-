@@ -55,7 +55,7 @@ namespace DVLD.Tests
             _ChangeTheFormAccordingToTestType(TestTypeID);
             IDLB.Text = LApplication.LocalApplicationID.ToString();
             ClassLB.Text = clsLicenseClass.GetClassName(LApplication.LicenseClassID);
-            NameLB.Text = clsLocalApplication.GetApplicantFullName(LApplication.ApplicantID);
+            NameLB.Text = LApplication.ApplicantInfo.FullName;
             CountLB.Text = clsTest.CalCulateTestTrail(LApplication.LocalApplicationID, TestTypeID).ToString();
             MoneyLB.Text = clsTestsTypes.GetTestTypeFees(TestTypeID).ToString();
             Method = _CheckForRetake();

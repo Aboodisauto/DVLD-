@@ -39,7 +39,7 @@ namespace DVLD.Tests
         {
             IDLB.Text = TestAppointment.LocalApplicationID.ToString();
             ClassLB.Text = clsLicenseClass.GetClassName(LocalApplication.LicenseClassID);
-            NameLB.Text = clsApplication.GetApplicantFullName(LocalApplication.ApplicantID);
+            NameLB.Text = LocalApplication.ApplicantInfo.FullName;
             CountLB.Text = clsTest.CalCulateTestTrail(LocalApplication.LocalApplicationID, TestAppointment.TestTypeID).ToString();
             DateLB.Text = TestAppointment.AppointmentDate.ToString("dd/MMM/yyyy");
             MoneyLB.Text = TestAppointment.TestPaidFees.ToString();

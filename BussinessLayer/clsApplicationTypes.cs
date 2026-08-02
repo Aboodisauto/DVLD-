@@ -10,7 +10,7 @@ namespace BussinessLayer
 {
     public class clsApplicationTypes
     {
-        public int ID = -1;
+        public int ID;
         public string Title;
         public double Fees;
 
@@ -21,7 +21,12 @@ namespace BussinessLayer
             this.Title = Title;
             this.Fees = fees;
         }
-
+        public clsApplicationTypes()
+        {
+            this.ID = -1;
+            this.Title = "";
+            this.Fees = 0.0;
+        }
         public static clsApplicationTypes Find(int ID)
         {
             string Title = "";

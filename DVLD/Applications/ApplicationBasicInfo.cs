@@ -40,11 +40,11 @@ namespace DVLD.Applications
             AppIdLb.Text = localApplication.LocalApplicationID.ToString();
             StatusLB.Text = DetermineStatus();
             FeesLB.Text = localApplication.PaidFees.ToString();
-            TypeLB.Text = clsApplicationTypes.GetApplicationTitle(localApplication.ApplicationType);
-            ApplicantName.Text = clsApplication.GetApplicantFullName(localApplication.ApplicantID);
+            TypeLB.Text = localApplication.ApplicationTypeInfo.Title;
+            ApplicantName.Text = localApplication.ApplicantInfo.FullName;
             DateLB.Text = localApplication.ApplicationDate.ToString("dd/MMM/yyyy", CultureInfo.InvariantCulture);
             StatusDateLB.Text = localApplication.StatusDate.ToString("dd/MMM/yyyy", CultureInfo.InvariantCulture);
-            UsernameLB.Text = clsUser.CurrentUser.UserName;
+            UsernameLB.Text = localApplication.CreatedByUserInfo.UserName;
         }
         public ApplicationBasicInfo()
         {

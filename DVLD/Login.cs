@@ -43,10 +43,10 @@ namespace DVLD
         }
         private void _ShowMainForm()
         {
-            this.Hide();
             Form frm = new Form1(this);
+            this.Hide();
             frm.ShowDialog();
-            
+            this.Close();
         }
         private bool _ReadDataOnOpen()
         {

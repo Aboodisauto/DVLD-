@@ -28,7 +28,6 @@ namespace DVLD.Applications.Types
             type = clsApplicationTypes.Find(ID);
             _LoadData();
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -44,7 +43,7 @@ namespace DVLD.Applications.Types
         }
         private bool CheckFees()
         {
-            return (TitleTB.Text != string.Empty);
+            return (FeesTB.Text != string.Empty);
         }
         private void button2_Click(object sender, EventArgs e)
         {

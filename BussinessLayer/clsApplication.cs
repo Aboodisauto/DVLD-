@@ -16,12 +16,15 @@ namespace BussinessLayer
         protected enMode Mode = enMode.Add;
         public int ApplicationID { get; set; }
         public int ApplicantID { get; set; }
+        public clsPerson ApplicantInfo { get; set; }
         public DateTime ApplicationDate { get; set;}
         public int ApplicationType { get; set; }
+        public clsApplicationTypes ApplicationTypeInfo { get; set; }
         public int ApplicationStatus { get; set; }
         public DateTime StatusDate { get; set; }
         public double PaidFees { get; set; }
         public int CreatedByUserID { get; set; }
+        public clsUser CreatedByUserInfo { get; set; }
         
        
         public clsApplication()
@@ -49,12 +52,15 @@ namespace BussinessLayer
         {
             this.ApplicationID = ApplicationID;
             this.ApplicantID = ApplicantID;
+            this.ApplicantInfo = clsPerson.Find(ApplicantID);
             this.ApplicationDate = ApplicationDate;
             this.ApplicationType = ApplicationType;
+            this.ApplicationTypeInfo = clsApplicationTypes.Find(ApplicationType);
             this.ApplicationStatus = ApplicationStatus;
             this.StatusDate = StatusDate;
             this.PaidFees = PaidFees;
             this.CreatedByUserID = CreatedByUserID;
+            this.CreatedByUserInfo = clsUser.Find(CreatedByUserID);
             Mode = enMode.Edit;
         }
         public static bool IsThereaDuplicate(int ApplicantID, int LicenseID)
@@ -108,10 +114,6 @@ namespace BussinessLayer
         public static bool Cancel(int ApplicationID)
         {
             return clsApplicationsDAC.CancelApplication(ApplicationID);
-        }
-        public static string GetApplicantFullName(int ApplicantID)
-        {
-            return clsApplicationsDAC.GetApplicantFullName(ApplicantID);
         }
         
 

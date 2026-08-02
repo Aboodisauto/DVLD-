@@ -178,7 +178,6 @@ namespace DataAccessLayer
 
             return rowsAffected > 0;
         }
-
         public static int GetLocalApplicationID(int licenseID)
         {
             int LocalApplicationID = -1;

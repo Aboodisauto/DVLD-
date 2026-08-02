@@ -29,7 +29,7 @@ namespace DVLD.License
                 license = clsLicense.FindByApplicationID(localApplication.ApplicationID);
             }
             ClassLB.Text = clsLicenseClass.GetClassName(license.LicenseClass);
-            NameLB.Text = clsApplication.GetApplicantFullName(localApplication.ApplicantID);
+            NameLB.Text = localApplication.ApplicantInfo.FullName;
             NationalNoLB.Text = clsPerson.GetPersonNationalNo(localApplication.ApplicantID);
             person = clsPerson.Find(localApplication.ApplicantID);
             if (license != null)

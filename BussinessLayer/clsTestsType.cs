@@ -13,6 +13,8 @@ namespace BussinessLayer
         public int ID = -1;
         public string Title;
         public string Description;
+        public enum enTestType { Vision = 1, Written = 2, Street = 3 }
+        public enTestType TestTypeID;
         public double Fees;
         private clsTestsTypes(int ID, string Title, string Description ,double fees)
         {
