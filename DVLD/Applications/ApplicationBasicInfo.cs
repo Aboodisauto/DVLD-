@@ -15,10 +15,7 @@ namespace DVLD.Applications
     public partial class ApplicationBasicInfo : UserControl
     {
         public clsLocalApplication localApplication;
-        public void _LoadApplicationData(int ID)
-        {
-            localApplication = clsLocalApplication.Find(ID);
-        }
+       
         private string DetermineStatus()
         {
             short passedTests = clsTest.CountPassedTests(localApplication.LocalApplicationID);
@@ -35,8 +32,10 @@ namespace DVLD.Applications
 
             return "Unknown";
         }
-        public void _LoadLocalApplicationData()
+
+        public void _LoadLocalApplicationData(int id)
         {
+            localApplication = clsLocalApplication.Find(id);
             AppIdLb.Text = localApplication.LocalApplicationID.ToString();
             StatusLB.Text = DetermineStatus();
             FeesLB.Text = localApplication.PaidFees.ToString();
@@ -46,6 +45,7 @@ namespace DVLD.Applications
             StatusDateLB.Text = localApplication.StatusDate.ToString("dd/MMM/yyyy", CultureInfo.InvariantCulture);
             UsernameLB.Text = localApplication.CreatedByUserInfo.UserName;
         }
+
         public ApplicationBasicInfo()
         {
             InitializeComponent();

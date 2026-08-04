@@ -52,11 +52,13 @@ namespace DVLD.Applications
         }
         private void _LoadPersonsData()
         {
-            UsernameLB.Text = clsUser.GetUserName(LocalApplication.CreatedByUserID);
-            comboBox1.SelectedIndex = _GetTheIndexForSelectedClass(comboBox1.SelectedItem.ToString());
+            UsernameLB.Text = LocalApplication.PersonFullName;
+            comboBox1.SelectedIndex = LocalApplication.LicenseClassID-1;
             FeesLB.Text = clsLicenseClass.getClassFees(comboBox1.SelectedItem.ToString()).ToString();
             IDLB.Text = LocalApplication.ApplicationID.ToString();
             DateLB.Text = LocalApplication.ApplicationDate.ToShortDateString();
+            filterPeople1.PersonID = LocalApplication.ApplicantID;
+            filterPeople1.LoadPersonData();
         }
         private void _ChangeClassFeesLabel()
         {

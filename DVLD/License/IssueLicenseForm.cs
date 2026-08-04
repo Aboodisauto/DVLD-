@@ -21,10 +21,8 @@ namespace DVLD.License
         {
             InitializeComponent();
             localApplication = clsLocalApplication.Find(LocalApplicationID);
-            applicationBasicInfo1.localApplication = localApplication;
-            applicationBasicInfo1._LoadLocalApplicationData();
-            driving_License_Application_Info1.localApplication = localApplication;
-            driving_License_Application_Info1._RefreshLocalApplication();
+            applicationBasicInfo1._LoadLocalApplicationData(LocalApplicationID);
+            driving_License_Application_Info1._LoadDriverApplicationInfo(LocalApplicationID);
         }
         private void _AddDriver()
         {

@@ -80,7 +80,7 @@
             this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridView1.Location = new System.Drawing.Point(13, 635);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
@@ -108,7 +108,7 @@
             this.showPersonHistoryToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(270, 258);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(270, 286);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // detailsToolStripMenuItem
@@ -128,6 +128,7 @@
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(269, 28);
             this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
@@ -235,7 +236,7 @@
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(128, 602);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(188, 24);
             this.comboBox1.TabIndex = 12;
@@ -247,7 +248,7 @@
             this.maskedTextBox1.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.maskedTextBox1.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Insert;
             this.maskedTextBox1.Location = new System.Drawing.Point(325, 603);
-            this.maskedTextBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.maskedTextBox1.Margin = new System.Windows.Forms.Padding(4);
             this.maskedTextBox1.Mask = "9999999999999";
             this.maskedTextBox1.Name = "maskedTextBox1";
             this.maskedTextBox1.PromptChar = ' ';
@@ -262,7 +263,7 @@
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(325, 603);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(179, 24);
             this.comboBox2.TabIndex = 14;
@@ -275,7 +276,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Image = global::DVLD.Properties.Resources.New_Application_64;
             this.button1.Location = new System.Drawing.Point(1232, 524);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(119, 101);
             this.button1.TabIndex = 15;
@@ -286,7 +287,7 @@
             // 
             this.pictureBox1.Image = global::DVLD.Properties.Resources.Local_Driving_License_512;
             this.pictureBox1.Location = new System.Drawing.Point(420, 27);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(539, 434);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -306,7 +307,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ManageLocalApplications";
             this.Text = "ManageLocalApplications";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

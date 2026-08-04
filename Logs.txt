@@ -81,3 +81,6 @@ The statement has been terminated.
 8/2/2026 6:51:25 PMProcedure or function 'sp_UpdateLocalApplication' expects parameter '@LocalDrivingLicenseApplicationID', which was not supplied.
 8/2/2026 6:51:25 PMProcedure or function 'sp_UpdateLocalApplication' expects parameter '@LocalDrivingLicenseApplicationID', which was not supplied.
 8/2/2026 6:51:25 PMProcedure or function 'sp_UpdateLocalApplication' expects parameter '@LocalDrivingLicenseApplicationID', which was not supplied.
+8/3/2026 10:16:13 PMProcedure or function 'sp_UpdateLocalApplication' expects parameter '@LocalDrivingLicenseApplicationID', which was not supplied.
+8/3/2026 10:18:21 PMProcedure or function 'sp_UpdateLocalApplication' expects parameter '@LocalDrivingLicenseApplicationID', which was not supplied.
+8/3/2026 10:23:27 PMProcedure or function 'sp_UpdateLocalApplication' expects parameter '@LocalDrivingLicenseApplicationID', which was not supplied.

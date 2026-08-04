@@ -72,7 +72,7 @@ namespace DataAccessLayer
             finally { connection.Close(); }
             return LocalApplicationID;
         }
-        public static bool UpdateLocalApplication(int LicenseClassID)
+        public static bool UpdateLocalApplication(int LicenseClassID, int LocalApplicationID)
         {
             int RowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsSettingsDAC.connectionString);
@@ -80,6 +80,7 @@ namespace DataAccessLayer
             command.CommandType = CommandType.StoredProcedure;
             // This stored proc expects the local application id and the new class id
             // To preserve original signature, we update all rows only if caller intends; prefer specifying id
+            command.Parameters.AddWithValue("@LocalDrivingLicenseApplicationID", LocalApplicationID);
             command.Parameters.AddWithValue("@LicenseClassID", LicenseClassID);
             try
             {

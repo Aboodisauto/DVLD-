@@ -42,7 +42,7 @@ namespace BussinessLayer
             {
                 return false;
             }
-            return clsLocalApplicationDAC.UpdateLocalApplication(LicenseClassID);
+            return clsLocalApplicationDAC.UpdateLocalApplication(LicenseClassID,LocalApplicationID);
         }
         public static clsLocalApplication Find(int LocalApplicationID)
         {

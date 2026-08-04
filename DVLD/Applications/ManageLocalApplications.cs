@@ -104,7 +104,8 @@ namespace DVLD.Applications
 
         private void detailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            ShowApplicationfrm frm = new ShowApplicationfrm((int)dataGridView1.SelectedRows[0].Cells[0].Value);
+            frm.ShowDialog();
         }
 
         private void cancelToolStripMenuItem_Click(object sender, EventArgs e)
@@ -262,6 +263,12 @@ namespace DVLD.Applications
             int LID = (int)dataGridView1.SelectedRows[0].Cells[0].Value;
             Form frm = new License.LicenseHistory(LID);
             frm.ShowDialog();
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveAddApplication saveAddApplication = new SaveAddApplication((int)dataGridView1.SelectedRows[0].Cells[0].Value);
+            saveAddApplication.ShowDialog();
         }
     }
 }

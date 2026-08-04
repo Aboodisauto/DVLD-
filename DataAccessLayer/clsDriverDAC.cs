@@ -191,12 +191,11 @@ namespace DataAccessLayer
             SqlCommand command = new SqlCommand("sp_IsDriverExistByPersonID", connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@PersonID", PersonID);
-
             try
             {
                 connection.Open();
-                object result = command.ExecuteScalar();
-                if (result != null)
+                int result = Convert.ToInt32(command.ExecuteScalar());
+                if (result != 0)
                 {
                     isFound = true;
                 }

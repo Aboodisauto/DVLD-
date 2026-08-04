@@ -40,32 +40,36 @@
             // 
             // driving_License_Application_Info1
             // 
-            this.driving_License_Application_Info1.Location = new System.Drawing.Point(7, 12);
+            this.driving_License_Application_Info1.Location = new System.Drawing.Point(9, 15);
+            this.driving_License_Application_Info1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.driving_License_Application_Info1.Name = "driving_License_Application_Info1";
-            this.driving_License_Application_Info1.Size = new System.Drawing.Size(830, 147);
+            this.driving_License_Application_Info1.Size = new System.Drawing.Size(1107, 181);
             this.driving_License_Application_Info1.TabIndex = 0;
             // 
             // applicationBasicInfo1
             // 
-            this.applicationBasicInfo1.Location = new System.Drawing.Point(7, 165);
+            this.applicationBasicInfo1.Location = new System.Drawing.Point(9, 203);
+            this.applicationBasicInfo1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.applicationBasicInfo1.Name = "applicationBasicInfo1";
-            this.applicationBasicInfo1.Size = new System.Drawing.Size(830, 266);
+            this.applicationBasicInfo1.Size = new System.Drawing.Size(1107, 327);
             this.applicationBasicInfo1.TabIndex = 1;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(29, 452);
+            this.label6.Location = new System.Drawing.Point(39, 556);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(52, 16);
+            this.label6.Size = new System.Drawing.Size(64, 20);
             this.label6.TabIndex = 19;
             this.label6.Text = "Notes:";
             // 
             // pictureBox4
             // 
             this.pictureBox4.Image = global::DVLD.Properties.Resources.Notes_321;
-            this.pictureBox4.Location = new System.Drawing.Point(87, 444);
+            this.pictureBox4.Location = new System.Drawing.Point(116, 546);
+            this.pictureBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(32, 32);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -74,21 +78,24 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(139, 444);
+            this.textBox1.Location = new System.Drawing.Point(185, 546);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(698, 97);
+            this.textBox1.Size = new System.Drawing.Size(929, 118);
             this.textBox1.TabIndex = 22;
             // 
             // button1
             // 
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Image = global::DVLD.Properties.Resources.Save_32;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(725, 560);
+            this.button1.Location = new System.Drawing.Point(967, 689);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(112, 42);
+            this.button1.Size = new System.Drawing.Size(149, 52);
             this.button1.TabIndex = 23;
             this.button1.Text = "Save";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -97,13 +104,15 @@
             // 
             // button2
             // 
+            this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.Image = global::DVLD.Properties.Resources.Close_32;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(607, 560);
+            this.button2.Location = new System.Drawing.Point(809, 689);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(112, 42);
+            this.button2.Size = new System.Drawing.Size(149, 52);
             this.button2.TabIndex = 24;
             this.button2.Text = "Close";
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -112,9 +121,11 @@
             // 
             // IssueLicenseForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AcceptButton = this.button1;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(849, 614);
+            this.CancelButton = this.button2;
+            this.ClientSize = new System.Drawing.Size(1132, 756);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
@@ -122,6 +133,7 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.applicationBasicInfo1);
             this.Controls.Add(this.driving_License_Application_Info1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "IssueLicenseForm";
             this.Text = "IssueLicenseForm";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();

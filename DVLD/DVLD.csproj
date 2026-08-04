@@ -95,6 +95,12 @@
     <Compile Include="Applications\SaveAddApplication.Designer.cs">
       <DependentUpon>SaveAddApplication.cs</DependentUpon>
     </Compile>
+    <Compile Include="Applications\ShowApplicationfrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Applications\ShowApplicationfrm.Designer.cs">
+      <DependentUpon>ShowApplicationfrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Applications\Types\ApplicationTypes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -313,6 +319,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Applications\SaveAddApplication.resx">
       <DependentUpon>SaveAddApplication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Applications\ShowApplicationfrm.resx">
+      <DependentUpon>ShowApplicationfrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Applications\Types\ApplicationTypes.resx">
       <DependentUpon>ApplicationTypes.cs</DependentUpon>

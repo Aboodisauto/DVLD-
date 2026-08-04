@@ -17,6 +17,7 @@ namespace DVLD.Tests
         clsTestAppointment TestAppointment;
         clsLocalApplication LocalApplication;
         clsTest Test;
+        bool tookTheTest = false;
         private void _ChangeTheFormAccordingToTestType(int TestType)
         {
             switch (TestType)
@@ -72,6 +73,10 @@ namespace DVLD.Tests
         }
         private void _SaveProcess()
         {
+            if (TestAppointment.isLocked){
+                MessageBox.Show("The test has already been taken !");
+                return;
+            }
             _LoadDataIntoTest();
             if (!Test.Save())
             {
