@@ -15,12 +15,14 @@ namespace BussinessLayer
         public int TestAppointmentID { set; get; }
         public int TestTypeID { set; get; }
         public int LocalApplicationID { set; get; }
+        public clsLocalApplication LocalApplication { set; get; }
         public DateTime AppointmentDate { set; get; }
         public double TestPaidFees { set; get; }
         public int TestCreatedUser { set; get; }
         public bool isLocked { set; get; }
         // New Property Added
         public int RetakeApplicationID { set; get; }
+        public clsApplication RetakeApplication { set; get; }
 
         public clsTestAppointment()
         {
@@ -42,11 +44,13 @@ namespace BussinessLayer
             this.TestAppointmentID = TestAppointmentID;
             this.TestTypeID = TestTypeID;
             this.LocalApplicationID = LocalApplicationID;
+            this.LocalApplication = clsLocalApplication.Find(LocalApplicationID);
             this.AppointmentDate = AppointmentDate;
             this.TestPaidFees = TestPaidFees;
             this.TestCreatedUser = CreatedByUser;
             this.isLocked = isLocked;
             this.RetakeApplicationID = RetakeApplicationID; // Assign new property
+            this.RetakeApplication = clsApplication.Find(RetakeApplicationID);
             Mode = enMode.Update;
         }
 

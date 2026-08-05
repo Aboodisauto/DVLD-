@@ -24,7 +24,7 @@ namespace DVLD.Tests
         private enBookMethod _CheckForRetake()
         {
             int NumberOfTrails = Convert.ToInt32(CountLB.Text);
-            if(NumberOfTrails > 0)
+            if(NumberOfTrails > 0 && !appointment.isLocked)
             {
                 return enBookMethod.Retake;
             }
@@ -52,6 +52,7 @@ namespace DVLD.Tests
         }
         private void _LoadData()
         {
+            
             _ChangeTheFormAccordingToTestType(TestTypeID);
             IDLB.Text = LApplication.LocalApplicationID.ToString();
             ClassLB.Text = clsLicenseClass.GetClassName(LApplication.LicenseClassID);
@@ -66,9 +67,15 @@ namespace DVLD.Tests
 
             }
             TotalFeesLB.Text = (Convert.ToInt32(label3.Text) + Convert.ToInt32(MoneyLB.Text)).ToString();
-            if(Mode == enMode.Update)
+            if (Mode == enMode.Update)
             {
                 dateTimePicker1.Value = appointment.AppointmentDate;
+                if (appointment.isLocked)
+                {
+                    dateTimePicker1.Enabled = false;
+                    button1.Enabled = false;
+                    label11.Visible = true;
+                }
             }
         }
         public BookAnAppointment(int TestAppointmentID,clsLocalApplication LApplication, int TestTypeID)

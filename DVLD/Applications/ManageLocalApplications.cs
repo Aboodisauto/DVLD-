@@ -191,18 +191,42 @@ namespace DVLD.Applications
         {
             int PassedCount = (int)dataGridView1.SelectedRows[0].Cells["PassedCount"].Value;
             string status = dataGridView1.SelectedRows[0].Cells["Status"].Value.ToString();
-            if (status == "Cancelled")
+            bool isLicenseIssued = (status == "Completed");
+
+            showLicenseToolStripMenuItem.Enabled = isLicenseIssued;
+            issueDrivingLicenseToolStripMenuItem.Enabled = (PassedCount == 3) && !isLicenseIssued;
+            editToolStripMenuItem.Enabled = !isLicenseIssued && PassedCount < 3;
+            cancelToolStripMenuItem.Enabled = !isLicenseIssued;
+            deleteToolStripMenuItem.Enabled = !isLicenseIssued;
+
+            if (status == "OnGoing" && PassedCount != 3)
+            {
+                if (PassedCount == 0)
+                {
+                    visionTestToolStripMenuItem.Enabled = true;
+                    writtenTestToolStripMenuItem.Enabled = false;
+                    streetTestToolStripMenuItem.Enabled = false;
+
+                }
+                else if (PassedCount == 1)
+                {
+                    visionTestToolStripMenuItem.Enabled = false;
+                    writtenTestToolStripMenuItem.Enabled = true;
+                    streetTestToolStripMenuItem.Enabled = false;
+                }
+                else
+                {
+                    visionTestToolStripMenuItem.Enabled = false;
+                    writtenTestToolStripMenuItem.Enabled = false;
+                    streetTestToolStripMenuItem.Enabled = true;
+                }
+            }
+            else
             {
                 visionTestToolStripMenuItem.Enabled = false;
                 writtenTestToolStripMenuItem.Enabled = false;
                 streetTestToolStripMenuItem.Enabled = false;
-                showLicenseToolStripMenuItem.Enabled = false;
-                issueDrivingLicenseToolStripMenuItem.Enabled = false;
-                editToolStripMenuItem.Enabled = false;
-                cancelToolStripMenuItem.Enabled = false;
-                deleteToolStripMenuItem.Enabled = false;
             }
-            contextMenuOptions(PassedCount);
         }
         private void _LoadTestTypeForm(int TestTypeID)
         {
@@ -261,7 +285,8 @@ namespace DVLD.Applications
         private void showPersonHistoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int LID = (int)dataGridView1.SelectedRows[0].Cells[0].Value;
-            Form frm = new License.LicenseHistory(LID);
+            clsLocalApplication localApplication = clsLocalApplication.Find(LID);
+            Form frm = new License.LicenseHistory(localApplication.ApplicationID);
             frm.ShowDialog();
         }
 
